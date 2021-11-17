@@ -15,7 +15,7 @@
     </style>
 
     <!--Custom Theme-->
-    <style name="Theme_1" parent="Theme.MaterialComponents.Light">
+    <style name="Theme_1" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/dark_pink</item>

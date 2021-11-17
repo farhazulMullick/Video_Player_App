@@ -7,32 +7,73 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:fitsSystemWindows="true">
 
-
-        <FrameLayout
-            android:id="@+id/fragment_container_layout"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="56dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </FrameLayout>
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav_view"
-            style="@style/bottom_navigation"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:menu="@menu/menu_bottom_nav"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/Theme_1">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/tool_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_handle"
+                    android:backgroundTint="@color/ripple_pink"
+                    android:drawableStart="@mipmap/ic_launcher"
+                    app:title="Video Player">
+
+                    <!--<ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="24dp"
+                        android:scaleY="1.5"
+                        android:scaleX="1.5"
+                        android:padding="3dp"
+                        android:src="@drawable/ic_drawer_handle"
+                        app:tint="@color/black" />-->
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <FrameLayout
+                android:id="@+id/fragment_container_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </FrameLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_nav_view"
+                style="@style/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:menu="@menu/menu_bottom_nav" />
+        </LinearLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/top_nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:itemIconTint="#FF2B79"
+            app:headerLayout="@layout/nav_header_layout"
+            app:menu="@menu/menu_nav_drawer" />
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
