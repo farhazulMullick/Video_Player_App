@@ -6,14 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.farhazulmullick.videoplayer.databinding.ActivityMainBinding
-import com.farhazulmullick.videoplayer.fragment.AllVideosFragment
+import com.farhazulmullick.videoplayer.fragment.VideosFragment
 import com.farhazulmullick.videoplayer.fragment.FoldersFragment
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setTheme(R.style.Theme_1)
         setContentView(binding.root)
-        hostFragment(AllVideosFragment())
+        hostFragment(VideosFragment())
 
         toggle = ActionBarDrawerToggle(
             this,
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.all_videos -> {
-                    hostFragment(AllVideosFragment())
+                    hostFragment(VideosFragment())
                 }
                 R.id.all_folders -> {
                     hostFragment(FoldersFragment())
@@ -69,26 +67,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (isStoragePermissionGranted()) {
-
-        } else {
-            Log.d(TAG, "Storage Permission Requested")
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                STORAGE_PERMISSION_REQ_CODE
-            )
-        }
-    }
-
-    private fun isStoragePermissionGranted() =
-        (ActivityCompat.checkSelfPermission(
-            this,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED)
-
     private fun hostFragment(fragment: Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.apply {
@@ -104,24 +82,6 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            STORAGE_PERMISSION_REQ_CODE -> {
-                grantResults.forEach {
-                    if (it != PackageManager.PERMISSION_GRANTED) {
-                        Log.d(TAG, "onRequestPermission() -> Storage Permission not Granted")
-                        return
-                    }
-                }
-                Log.d(TAG, "onRequestPermission() -> Storage Permission Granted")
-            }
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.AllVideosFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.farhazulmullick.viewmodel.VideoViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="All Videos" />
+        android:orientation="vertical"
+        tools:context=".fragment.VideosFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_total_videos"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.totalVideos}"
+            android:padding="0dp"
+            tools:text="Videos"
+            android:textSize="13sp"
+            style="@style/customSubTitleStyle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_total_videos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/layout_row_video_player" />
+
+    </LinearLayout>
+</layout>
