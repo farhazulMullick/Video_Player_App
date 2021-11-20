@@ -36,6 +36,7 @@ class FoldersAdapter(private val context: Context) :
             container.setOnClickListener {
                 Intent(context, FolderDetailsActivity::class.java).apply {
                     putExtra("folderName", currentData.folderName)
+                    putExtra("folderId", currentData.folderId)
                     context.startActivity(this)
                 }
             }
