@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/drawable/bg_header_pink.xml" value="0.21614583333333334" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/drawable/ic_scrollbar.xml" value="0.2" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/drawable/selector_bottom_nav_icon_color.xml" value="0.21614583333333334" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/font/courgette.xml" value="0.23020833333333332" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_folder_details.xml" value="0.17346014492753623" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/fragment_all_videos.xml" value="0.2292358803986711" />
-        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/fragment_folders.xml" value="0.19519927536231885" />
-        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/layout_row_video_player.xml" value="0.25" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/fragment_folders.xml" value="0.25" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/layout_row_folders.xml" value="0.22" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/layout_row_video_player.xml" value="0.5" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/nav_header_layout.xml" value="0.25" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/menu/menu_bottom_nav.xml" value="0.2" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/menu/menu_nav_drawer.xml" value="0.1712962962962963" />

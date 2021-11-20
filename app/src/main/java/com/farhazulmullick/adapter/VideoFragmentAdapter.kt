@@ -5,11 +5,12 @@ import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.farhazulmullick.modal.Video
 import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.LayoutRowVideoPlayerBinding
 
-class VideoFragmentAdapter(context: Context) : RecyclerView.Adapter<VideoFragmentAdapter.VideoViewHolder>() {
+class VideoFragmentAdapter(val context: Context) : RecyclerView.Adapter<VideoFragmentAdapter.VideoViewHolder>() {
     inner class VideoViewHolder(val binding: LayoutRowVideoPlayerBinding) :
         RecyclerView.ViewHolder(binding.root){
 
@@ -35,6 +36,13 @@ class VideoFragmentAdapter(context: Context) : RecyclerView.Adapter<VideoFragmen
             videoFolder.text = currentVideo.videoFolderName
             videoFolder.isSelected = true
             elapsedtime.text = DateUtils.formatElapsedTime(currentVideo.videoDuration/1000)
+
+            Glide.with(context)
+                .load(currentVideo.videoPath)
+                .apply {
+                    this.placeholder(R.mipmap.ic_launcher)
+                }
+                .into(videoThumbnail)
         }
     }
 

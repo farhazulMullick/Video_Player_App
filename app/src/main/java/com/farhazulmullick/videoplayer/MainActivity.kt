@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // databinding
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        setTheme(R.style.Theme_1)
         setContentView(binding.root)
         hostFragment(VideosFragment())
 
@@ -39,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             R.string.drawer_close
         )
         toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setUptoolbar()
         binding.bottomNavView.setOnItemSelectedListener {

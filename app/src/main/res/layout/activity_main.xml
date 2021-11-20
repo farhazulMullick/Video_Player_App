@@ -22,7 +22,7 @@
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:theme="@style/Theme_1">
+                android:theme="@style/MainActivityStyle">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tool_bar"
@@ -33,16 +33,12 @@
                     android:drawableStart="@mipmap/ic_launcher"
                     app:title="Video Player">
 
-                    <!--<ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="24dp"
-                        android:scaleY="1.5"
-                        android:scaleX="1.5"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="start"
                         android:padding="3dp"
-                        android:src="@drawable/ic_drawer_handle"
-                        app:tint="@color/black" />-->
+                        android:src="@mipmap/ic_launcher" />
 
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.AppBarLayout>

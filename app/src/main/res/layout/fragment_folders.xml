@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.FoldersFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.farhazulmullick.viewmodel.VideoViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="all Folders"/>
+        android:orientation="vertical"
+        tools:context=".fragment.VideosFragment">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/tv_total_folder"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            tools:text="Folders: 12"
+            android:textSize="14sp"
+            style="@style/customSubTitleStyle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_folder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/layout_row_folders" />
+
+    </LinearLayout>
+</layout>

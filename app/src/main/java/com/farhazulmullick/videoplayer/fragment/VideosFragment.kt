@@ -15,7 +15,10 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.adapter.VideoFragmentAdapter
+import com.farhazulmullick.utils.PermissionUtils
+import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
@@ -46,12 +49,6 @@ class VideosFragment : Fragment() {
         }
     }
 
-    private fun isStoragePermissionGranted() =
-        (ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,13 +71,19 @@ class VideosFragment : Fragment() {
         binding.rvTotalVideos.apply {
             adapter = videoAdapter
             layoutManager = LinearLayoutManager(requireContext())
+
+            when(scrollState){
+                RecyclerView.SCROLL_STATE_DRAGGING ->{
+                    context?.toast("Scrolling")
+                }
+            }
         }
     }
 
     override fun onStart() {
         super.onStart()
         val permissionList = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (isStoragePermissionGranted()){
+        if (PermissionUtils.isStoragePermissionGranted(requireContext())){
             // do work
             viewModel.fetchAllVideos()
         }

@@ -8,22 +8,35 @@ import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.farhazulmullick.modal.Folder
 import com.farhazulmullick.modal.Video
 import java.io.File
 import java.io.FileNotFoundException
 import java.lang.Exception
 
 class VideoViewModel(application: Application) : AndroidViewModel(application) {
-    companion object{
+    companion object {
         const val TAG = "VideoViewModel"
     }
+
     private lateinit var collection: Uri
     val videoList = MutableLiveData<List<Video>>()
-    var totalVideos : String? = null
+    val folderList = MutableLiveData<List<Folder>>()
+    var totalVideos: String? = null
+
+    private val projections = arrayOf(
+        MediaStore.Video.Media._ID,
+        MediaStore.Video.Media.DISPLAY_NAME,
+        MediaStore.Video.Media.DURATION,
+        MediaStore.Video.Media.SIZE,
+        MediaStore.Video.Media.BUCKET_DISPLAY_NAME,
+        MediaStore.Video.Media.DATE_ADDED,
+        MediaStore.Video.Media.DATA,
+        MediaStore.Video.Media.BUCKET_ID
+    )
 
     init {
-
+        Log.d(TAG, "viewModel -> ${this.hashCode()}")
 
     }
 
@@ -33,16 +46,6 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         } else {
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         }
-
-        val projections = arrayOf(
-            MediaStore.Video.Media._ID,
-            MediaStore.Video.Media.DISPLAY_NAME,
-            MediaStore.Video.Media.DURATION,
-            MediaStore.Video.Media.SIZE,
-            MediaStore.Video.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.Video.Media.DATE_ADDED,
-            MediaStore.Video.Media.DATA,
-        )
 
         val sortOrder = MediaStore.Video.Media.DATE_ADDED + " DESC"
         try {
@@ -86,15 +89,50 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
                     )
                 }
 
+
             }
+            Log.d(TAG, "fetchVideos() -> cursor ${cursor.hashCode()}")
             videoList.value = dataList
             totalVideos = "Total Videos: ${dataList.size}"
-
-            Log.d(TAG, "init block -> videoTitle ${dataList[0].videoName} videoSize -> ${dataList.size}")
-
             cursor?.close()
         } catch (e: FileNotFoundException) {
             Log.d(TAG, "${e.message}")
+        }
+    }
+
+    fun fetchAllfolders(){
+
+        val sortOrder = MediaStore.Video.Media.BUCKET_DISPLAY_NAME + " ASC"
+        val cursor = this.getApplication<Application>().applicationContext.contentResolver.query(
+            collection,
+            projections,
+            null,
+            null,
+            sortOrder
+        )
+        val folderSet = mutableSetOf<Folder>()
+        while (cursor?.moveToNext() == true) {
+            val folderIdCol = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_ID))
+            val folderNameCol = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
+            val pathCol = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
+
+            try {
+                val file = File(pathCol)
+                if (file.exists()) {
+                    folderSet.add(
+                        Folder(
+                            folderId = folderIdCol,
+                            folderName = folderNameCol
+                        )
+                    )
+                }
+            }
+
+            catch (e: Exception){
+                Log.d(TAG, "${e.message}")
+            }
+
+            folderList.value = folderSet.toList()
         }
     }
 
