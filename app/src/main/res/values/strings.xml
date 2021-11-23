@@ -17,4 +17,7 @@
     <string name="total_videos">Total Videos</string>
     <string name="image">Image</string>
     <string name="folder123">folder123</string>
+    <string name="forward_slash">/</string>
+    <string name="video_lock_close">Video lock close</string>
+    <string name="vide_back">video back button</string>
 </resources>

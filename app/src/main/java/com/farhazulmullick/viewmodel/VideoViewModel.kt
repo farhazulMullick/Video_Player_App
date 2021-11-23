@@ -17,12 +17,19 @@ import java.lang.Exception
 class VideoViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         const val TAG = "VideoViewModel"
+
+        private var instance: VideoViewModel? = null
+        fun getInstance(application: Application) =
+            instance ?: synchronized(VideoViewModel::class.java){
+                VideoViewModel(application = application).also { instance = it }
+            }
     }
 
     private lateinit var collection: Uri
     val videoList = MutableLiveData<List<Video>>()
     val folderList = MutableLiveData<List<Folder>>()
     var totalVideos: String? = null
+    val position = MutableLiveData(-1)
 
     private val projections = arrayOf(
         MediaStore.Video.Media._ID,
@@ -79,7 +86,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
                         Video(
                             videoId = idCol,
                             videoUri = collection,
-                            videoName = nameCol,
+                            videoTitle = nameCol,
                             videoDuration = durationCol,
                             videoSize = sizeCol,
                             videoDateAdded = dateAddedCol,
@@ -168,7 +175,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
                     cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATE_ADDED))
                 val folderNameCol =
                     cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.BUCKET_DISPLAY_NAME))
-                val pathCol = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
+                val pathCol = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA)) // storage//emulated/0/
 
                 val file = File(pathCol)
                 if (file.exists()) {
@@ -176,7 +183,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
                         Video(
                             videoId = idCol,
                             videoUri = collection,
-                            videoName = nameCol,
+                            videoTitle = nameCol,
                             videoDuration = durationCol,
                             videoSize = sizeCol,
                             videoDateAdded = dateAddedCol,
@@ -194,6 +201,24 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
             cursor?.close()
         } catch (e: FileNotFoundException) {
             Log.d(TAG, "${e.message}")
+        }
+    }
+
+    fun playNextVideo(){
+        if (position.value!! == videoList.value!!.size - 1){
+            position.value = 0
+        }
+        else if (position.value!! < videoList.value!!.size-1){
+            position.value = position.value?.plus(1)
+        }
+    }
+
+    fun playPrevVideo(){
+        if (position.value!! == 0){
+            position.value = videoList?.value?.size!! -1
+        }
+        else{
+            position.value = position.value?.minus(1)
         }
     }
 

@@ -16,13 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoPlayer">
         <activity
+            android:name=".ExoplayerActivity"
+            android:theme="@style/exoplayerViewStyle"
+            android:configChanges="uiMode|orientation|screenSize|screenLayout"
+            android:exported="true" />
+        <activity
             android:name=".FolderDetailsActivity"
             android:exported="true"
-            android:theme="@style/FolderDetailsActivityStyle"/>
+            android:theme="@style/FolderDetailsActivityStyle" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/MainActivityStyle"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/MainActivityStyle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

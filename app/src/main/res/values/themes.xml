@@ -62,6 +62,14 @@
         <item name="android:padding">5dp</item>
     </style>
 
+    <style name="exoplayerViewStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">@color/dark_pink</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+    </style>
+
     <style name="customImageStyle">
         <item name="cornerSize">8dp</item>
     </style>

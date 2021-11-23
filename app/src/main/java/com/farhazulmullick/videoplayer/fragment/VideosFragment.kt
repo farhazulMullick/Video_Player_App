@@ -34,7 +34,7 @@ class VideosFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val factory = VideoViewModelFactory(activity?.application!!)
+        val factory = VideoViewModelFactory.getInstance(activity?.application!!)
         viewModel = ViewModelProvider(requireActivity(), factory).get(VideoViewModel::class.java)
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
         {result ->
@@ -67,7 +67,7 @@ class VideosFragment : Fragment() {
     }
 
     private fun setUpRecyclerView() {
-        videoAdapter = VideoFragmentAdapter(requireContext())
+        videoAdapter = VideoFragmentAdapter(requireContext(), viewModel)
         binding.rvTotalVideos.apply {
             adapter = videoAdapter
             layoutManager = LinearLayoutManager(requireContext())

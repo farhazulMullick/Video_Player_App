@@ -10,8 +10,16 @@ import java.lang.IllegalStateException
 class VideoViewModelFactory(private val application: Application): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VideoViewModel::class.java))
-            return VideoViewModel(application) as T
+            return VideoViewModel.getInstance(application) as T
         else
             throw IllegalArgumentException("Unable to create viewmodel")
+    }
+
+    companion object{
+        private var instance : VideoViewModelFactory? = null
+        fun getInstance(application: Application) =
+            instance ?: synchronized(VideoViewModelFactory::class.java){
+                instance ?: VideoViewModelFactory(application).also { instance = it }
+            }
     }
 }

@@ -27,6 +27,7 @@
 
 
         <LinearLayout
+            android:id="@+id/container"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"

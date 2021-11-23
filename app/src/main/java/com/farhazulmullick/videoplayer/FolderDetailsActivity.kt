@@ -23,7 +23,7 @@ class FolderDetailsActivity : AppCompatActivity() {
         _binding = ActivityFolderDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = VideoViewModelFactory(application)
+        val factory = VideoViewModelFactory.getInstance(application)
         viewModel = ViewModelProvider(this, factory).get(VideoViewModel::class.java)
         binding.viewModel = viewModel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,7 +47,7 @@ class FolderDetailsActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        videoAdapter = VideoFragmentAdapter(this)
+        videoAdapter = VideoFragmentAdapter(this, viewModel)
         binding.rvTotalVideos.apply{
             layoutManager = LinearLayoutManager(this@FolderDetailsActivity)
             adapter = videoAdapter

@@ -30,7 +30,7 @@ class FoldersFragment : Fragment() {
     private lateinit var viewModel: VideoViewModel
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val factory = VideoViewModelFactory(activity?.application!!)
+        val factory = VideoViewModelFactory.getInstance(activity?.application!!)
         viewModel = ViewModelProvider(requireActivity(), factory).get(VideoViewModel::class.java)
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
         {result ->
