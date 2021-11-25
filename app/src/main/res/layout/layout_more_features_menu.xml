@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exo_audio_track"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/audio_track"
+                style="@style/menu_options_exoplayer"
+                app:icon="@drawable/ic_exo_audio_track"
+                android:textAllCaps="false"
+                app:iconGravity="top" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/subtitles"
+                app:icon="@drawable/exo_ic_subtitle_on"
+                style="@style/menu_options_exoplayer"
+                android:textAllCaps="false"
+                app:iconGravity="top" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/audio_booster"
+                app:icon="@drawable/ic_exo_volume_booster"
+                style="@style/menu_options_exoplayer"
+                android:textAllCaps="false"
+                app:iconGravity="top" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/sleep_timer"
+                app:icon="@drawable/ic_exo_sleep_timer"
+                style="@style/menu_options_exoplayer"
+                android:textAllCaps="false"
+                app:iconGravity="top" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/pip_mode"
+                style="@style/menu_options_exoplayer"
+                app:icon="@drawable/ic_exo_pip_active"
+                app:iconGravity="top" />
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/playback_speed"
+                style="@style/menu_options_exoplayer"
+                app:icon="@drawable/ic_exo_playback_speed"
+                android:textAllCaps="false"
+                app:iconGravity="top" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

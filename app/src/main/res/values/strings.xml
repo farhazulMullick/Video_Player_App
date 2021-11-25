@@ -20,4 +20,13 @@
     <string name="forward_slash">/</string>
     <string name="video_lock_close">Video lock close</string>
     <string name="vide_back">video back button</string>
+
+<!--    For menu-->
+    <string name="audio_track">Audio Track</string>
+    <string name="subtitles">Subtitle</string>
+    <string name="audio_booster">Booster</string>
+    <string name="playback_speed">Speed</string>
+    <string name="pip_mode">Pip</string>
+    <string name="sleep_timer">Sleep timer</string>
+    <string name="select_language">Select Language</string>
 </resources>

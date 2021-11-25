@@ -17,7 +17,6 @@
         android:theme="@style/Theme.VideoPlayer">
         <activity
             android:name=".ExoplayerActivity"
-            android:theme="@style/exoplayerViewStyle"
             android:configChanges="uiMode|orientation|screenSize|screenLayout"
             android:exported="true" />
         <activity

@@ -62,12 +62,27 @@
         <item name="android:padding">5dp</item>
     </style>
 
-    <style name="exoplayerViewStyle" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="exoplayerViewStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/dark_pink</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <style name="audio_track_theme">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:background">@color/apple_color</item>
+    </style>
+
+    <style name="menu_options_exoplayer">
+        <item name="iconTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
     <style name="customImageStyle">

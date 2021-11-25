@@ -12,5 +12,7 @@
     <color name="pink">#d81b60</color>
     <color name="dark_pink">#ba2d65</color>
     <color name="ripple_pink">#F6CBDD</color>
+    <color name="bg_more_features">#99F6CBDD</color>
     <color name="grey">@android:color/darker_gray</color>
+    <color name="apple_color">#50870A30</color>
 </resources>
