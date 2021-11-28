@@ -98,6 +98,54 @@
         app:tint="@color/white" />
 
     <RelativeLayout
+        android:id="@+id/exo_volume_brightness_container"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="56dp"
+        app:layout_constraintBottom_toTopOf="@+id/exo_media_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/exo_top_container" >
+
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/exo_brightness_slider"
+            android:layout_width="150dp"
+            android:layout_height="6dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:alpha="0"
+            android:padding="20dp"
+            android:rotation="270"
+            android:translationX="-32dp"
+            android:value="0.6"
+            app:haloColor="@color/color_brightness_slider_track_inactive"
+            app:thumbColor="@color/color_brightness_slider_thumb_color"
+            app:trackColorActive="@color/color_brightness_slider_thumb_color"
+            app:trackColorInactive="@color/color_brightness_slider_track_inactive"
+            app:trackHeight="6dp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/exo_volume_slider"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:alpha="0"
+            android:padding="20dp"
+            android:rotation="270"
+            android:translationX="32dp"
+            android:value="0.6"
+            app:haloColor="@color/color_volume_slider_track_inactive"
+            app:thumbColor="@color/color_volume_slider_thumb_color"
+            app:trackColorActive="@color/color_volume_slider_thumb_color"
+            app:trackColorInactive="@color/color_volume_slider_track_inactive"
+            app:trackHeight="6dp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
         android:id="@+id/exo_media_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -105,7 +153,8 @@
         app:layout_constraintBottom_toTopOf="@+id/exo_bottom_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exo_top_container">
+        app:layout_constraintTop_toBottomOf="@+id/exo_top_container"
+        app:layout_constraintVertical_bias="0.9">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -126,7 +175,7 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/video_lock_close"
+                android:contentDescription="@string/prev_video_btn"
                 android:focusable="true"
                 android:src="@drawable/ic_exo_previous"
                 app:tint="@color/white" />
@@ -139,7 +188,7 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/video_lock_close"
+                android:contentDescription="@string/seek_back"
                 android:focusable="true"
                 android:src="@drawable/ic_exo_icon_rewind"
                 app:tint="@color/white" />
@@ -152,20 +201,21 @@
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
+                android:contentDescription="@string/play_and_pause_button"
                 app:srcCompat="@drawable/ic_exo_icon_play"
                 app:tint="@color/white" />
 
 
             <ImageButton
                 android:id="@+id/exo_seek_forward"
+                style="@style/ExoMediaButton.FastForward"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                style="@style/ExoMediaButton.FastForward"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/video_lock_close"
+                android:contentDescription="@string/seek_forward"
                 android:focusable="true"
                 android:src="@drawable/ic_exo_icon_fastforward"
                 app:tint="@color/white" />
@@ -178,13 +228,50 @@
                 android:layout_weight="1"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:contentDescription="@string/video_lock_close"
+                android:contentDescription="@string/next_video_btn"
                 android:focusable="true"
                 android:src="@drawable/ic_exo_next"
                 app:tint="@color/white" />
 
         </LinearLayout>
     </RelativeLayout>
+
+    <!--<com.google.android.material.slider.Slider
+        android:id="@+id/exo_volume_slider"
+        android:alpha="0"
+        android:padding="20dp"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:rotation="270"
+        app:thumbColor="@color/pink"
+        android:translationX="32dp"
+        app:trackHeight="6dp"
+        app:trackColorActive="@color/pink"
+        app:trackColorInactive="@color/ripple_pink"
+        app:haloColor="@color/ripple_pink"
+        android:value="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/exo_media_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/exo_media_container" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/exo_brightness_slider"
+        android:layout_width="150dp"
+        android:padding="20dp"
+        android:alpha="0"
+        android:layout_height="wrap_content"
+        android:rotation="270"
+        app:thumbColor="@color/yellow"
+        android:translationX="-32dp"
+        app:trackHeight="6dp"
+        app:trackColorActive="@color/yellow"
+        app:trackColorInactive="@color/light_yellow"
+        app:haloColor="@color/light_yellow"
+        android:value="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/exo_media_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/exo_media_container" />-->
+
 
     <RelativeLayout
         android:id="@+id/exo_bottom_container"

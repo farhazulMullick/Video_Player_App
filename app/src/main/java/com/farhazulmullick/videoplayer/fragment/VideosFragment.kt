@@ -30,23 +30,24 @@ class VideosFragment : Fragment() {
 
     private lateinit var viewModel: VideoViewModel
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private lateinit var videoAdapter : VideoFragmentAdapter
+    private lateinit var videoAdapter: VideoFragmentAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val factory = VideoViewModelFactory.getInstance(activity?.application!!)
         viewModel = ViewModelProvider(requireActivity(), factory).get(VideoViewModel::class.java)
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-        {result ->
-            var allGranted = true
-            result.forEach{isGranted->
-                allGranted = allGranted and isGranted.value
-            }
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
+            { result ->
+                var allGranted = true
+                result.forEach { isGranted ->
+                    allGranted = allGranted and isGranted.value
+                }
 
-            if (allGranted){
-                viewModel.fetchAllVideos()
+                if (allGranted) {
+                    viewModel.fetchAllVideos()
+                }
             }
-        }
     }
 
     override fun onCreateView(
@@ -59,7 +60,7 @@ class VideosFragment : Fragment() {
 
         setUpRecyclerView()
         viewModel.videoList.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()){
+            if (it.isNotEmpty()) {
                 videoAdapter.setVideos(it)
             }
         })
@@ -72,8 +73,8 @@ class VideosFragment : Fragment() {
             adapter = videoAdapter
             layoutManager = LinearLayoutManager(requireContext())
 
-            when(scrollState){
-                RecyclerView.SCROLL_STATE_DRAGGING ->{
+            when (scrollState) {
+                RecyclerView.SCROLL_STATE_DRAGGING -> {
                     context?.toast("Scrolling")
                 }
             }
@@ -83,11 +84,11 @@ class VideosFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         val permissionList = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (PermissionUtils.isStoragePermissionGranted(requireContext())){
+        if (PermissionUtils.isStoragePermissionGranted(requireContext())
+        ) {
             // do work
             viewModel.fetchAllVideos()
-        }
-        else{
+        } else {
             //request permissions
             permissionLauncher.launch(permissionList)
         }

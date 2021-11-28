@@ -20,7 +20,11 @@
     <string name="forward_slash">/</string>
     <string name="video_lock_close">Video lock close</string>
     <string name="vide_back">video back button</string>
-
+    <string name="next_video_btn">Next video button</string>
+    <string name="prev_video_btn">Previous video button</string>
+    <string name="play_and_pause_button">Play and pause button</string>
+    <string name="seek_forward">Seek Forward</string>
+    <string name="seek_back">rewind</string>
 <!--    For menu-->
     <string name="audio_track">Audio Track</string>
     <string name="subtitles">Subtitle</string>
@@ -29,4 +33,5 @@
     <string name="pip_mode">Pip</string>
     <string name="sleep_timer">Sleep timer</string>
     <string name="select_language">Select Language</string>
+
 </resources>

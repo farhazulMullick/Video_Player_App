@@ -15,4 +15,8 @@
     <color name="bg_more_features">#99F6CBDD</color>
     <color name="grey">@android:color/darker_gray</color>
     <color name="apple_color">#50870A30</color>
+    <color name="color_brightness_slider_thumb_color">#F8C93E</color>
+    <color name="color_brightness_slider_track_inactive">#A5A078</color>
+    <color name="color_volume_slider_thumb_color">#00FF48</color>
+    <color name="color_volume_slider_track_inactive">#108E34</color>
 </resources>
