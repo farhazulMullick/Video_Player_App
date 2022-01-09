@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.SurfaceView
 import android.view.View
 import android.widget.AdapterView
 import androidx.annotation.RequiresApi
@@ -71,7 +72,6 @@ class ExoplayerActivity : AppCompatActivity() {
         setExoControlsVisibility()
 
         initializeBindings()
-
     }
 
 
@@ -225,7 +225,7 @@ class ExoplayerActivity : AppCompatActivity() {
                     Settings.System
                         .putInt(
                             this@ExoplayerActivity.contentResolver,
-                            Settings.System.SCREEN_BRIGHTNESS_MODE,
+                            Settings.System.SCREEN_BRIGHTNESS,
                             screenBrightnessValue.toInt()
                         )
 

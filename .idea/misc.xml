@@ -27,7 +27,7 @@
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/drawable/ic_video_previous.xml" value="0.21614583333333334" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/drawable/selector_bottom_nav_icon_color.xml" value="0.21614583333333334" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/font/courgette.xml" value="0.23020833333333332" />
-        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_exoplayer.xml" value="0.25" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_exoplayer.xml" value="0.22" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_folder_details.xml" value="0.17346014492753623" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/layout/custom_exo_control_view.xml" value="0.22" />
@@ -41,6 +41,7 @@
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/menu/menu_bottom_nav.xml" value="0.2" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/menu/menu_nav_drawer.xml" value="0.1712962962962963" />
         <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2128205128205128" />
+        <entry key="..\:/AndriodStudioProjects/VideoPlayer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.21614583333333334" />
       </map>
     </option>
   </component>

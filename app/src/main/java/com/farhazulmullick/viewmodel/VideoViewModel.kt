@@ -49,7 +49,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun fetchAllVideos(){
         collection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL);
+            MediaStore.Video.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
         } else {
             MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
         }
@@ -215,7 +215,7 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
 
     fun playPrevVideo(){
         if (position.value!! == 0){
-            position.value = videoList?.value?.size!! -1
+            position.value = videoList.value?.size!! -1
         }
         else{
             position.value = position.value?.minus(1)
