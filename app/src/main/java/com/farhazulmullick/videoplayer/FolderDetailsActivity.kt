@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.farhazulmullick.adapter.VideoFragmentAdapter
 import com.farhazulmullick.videoplayer.databinding.ActivityFolderDetailsBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
-import com.farhazulmullick.viewmodel.VideoViewModelFactory
 
 class FolderDetailsActivity : AppCompatActivity() {
     private var _binding : ActivityFolderDetailsBinding? = null
@@ -23,8 +22,8 @@ class FolderDetailsActivity : AppCompatActivity() {
         _binding = ActivityFolderDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory = VideoViewModelFactory.getInstance(application)
-        viewModel = ViewModelProvider(this, factory).get(VideoViewModel::class.java)
+        //val factory = VideoViewModelFactory.getInstance(application)
+        viewModel = ViewModelProvider(this).get(VideoViewModel::class.java)
         binding.viewModel = viewModel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = intent.getStringExtra("folderName")

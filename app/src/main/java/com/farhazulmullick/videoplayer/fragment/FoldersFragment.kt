@@ -9,15 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farhazulmullick.adapter.FoldersAdapter
 import com.farhazulmullick.utils.PermissionUtils
-import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.FragmentFoldersBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
-import com.farhazulmullick.viewmodel.VideoViewModelFactory
 
 class FoldersFragment : Fragment() {
     private var _binding : FragmentFoldersBinding? = null
@@ -27,11 +25,11 @@ class FoldersFragment : Fragment() {
     private lateinit var folderAdapter:FoldersAdapter
 
     // viewModel
-    private lateinit var viewModel: VideoViewModel
+    private val viewModel: VideoViewModel by activityViewModels()
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        val factory = VideoViewModelFactory.getInstance(activity?.application!!)
-        viewModel = ViewModelProvider(requireActivity(), factory).get(VideoViewModel::class.java)
+        //val factory = VideoViewModelFactory.getInstance(activity?.application!!)
+
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
         {result ->
             var allGranted = true

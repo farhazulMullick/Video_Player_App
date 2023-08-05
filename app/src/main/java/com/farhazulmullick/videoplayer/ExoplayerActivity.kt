@@ -4,30 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
-import android.os.Build
-import android.os.Build.VERSION_CODES.M
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.SurfaceView
 import android.view.View
-import android.widget.AdapterView
-import androidx.annotation.RequiresApi
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.farhazulmullick.utils.OnSwipeTouchListener
 import com.farhazulmullick.utils.PermissionUtils
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.databinding.ActivityExoplayerBinding
 import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
-import com.farhazulmullick.viewmodel.VideoViewModelFactory
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
@@ -63,8 +56,7 @@ class ExoplayerActivity : AppCompatActivity() {
         setTheme(R.style.exoplayerViewStyle)
         setContentView(binding.root)
 
-        val factory = VideoViewModelFactory.getInstance(application)
-        viewModel = ViewModelProvider(this, factory).get(VideoViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(VideoViewModel::class.java)
         audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         onUpBackbuttonClicked()
         setUpImmersiveMode()
