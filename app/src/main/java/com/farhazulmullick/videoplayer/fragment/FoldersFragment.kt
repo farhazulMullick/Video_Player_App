@@ -1,19 +1,19 @@
 package com.farhazulmullick.videoplayer.fragment
 
-import android.Manifest
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farhazulmullick.adapter.FoldersAdapter
-import com.farhazulmullick.utils.PermissionUtils
+import com.farhazulmullick.permissionmanager.PermissionsActivity
+import com.farhazulmullick.utils.PermissionType
+import com.farhazulmullick.utils.checkForRequiredPermissions
+import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.databinding.FragmentFoldersBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
 
@@ -21,26 +21,12 @@ class FoldersFragment : Fragment() {
     private var _binding : FragmentFoldersBinding? = null
     private val binding get() = _binding!!
     //permission launcher
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var folderAdapter:FoldersAdapter
 
     // viewModel
     private val viewModel: VideoViewModel by activityViewModels()
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        //val factory = VideoViewModelFactory.getInstance(activity?.application!!)
-
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-        {result ->
-            var allGranted = true
-            result.forEach{isGranted->
-                allGranted = allGranted and isGranted.value
-            }
-
-            if (allGranted){
-                viewModel.fetchAllfolders()
-            }
-        }
     }
 
     override fun onCreateView(
@@ -60,15 +46,15 @@ class FoldersFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val permissionList = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (PermissionUtils.isStoragePermissionGranted(requireContext())){
-            // do work
-            viewModel.fetchAllfolders()
-        }
-        else{
-            //request permissions
-            permissionLauncher.launch(permissionList)
-        }
+
+        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+            onGranted = {
+                viewModel.fetchAllfolders()
+            },
+            onDenied = {
+                toastS("Please Grant media permissions to access files")
+            }
+        )
     }
 
 
@@ -76,7 +62,6 @@ class FoldersFragment : Fragment() {
         folderAdapter = FoldersAdapter(requireContext())
         binding.rvFolder.apply {
             adapter = folderAdapter
-            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 

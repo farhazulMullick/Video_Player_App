@@ -14,8 +14,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.adapter.VideoFragmentAdapter
+import com.farhazulmullick.utils.PermissionType
 import com.farhazulmullick.utils.PermissionUtils
+import com.farhazulmullick.utils.checkForRequiredPermissions
 import com.farhazulmullick.utils.toast
+import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
 
@@ -78,15 +81,15 @@ class VideosFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val permissionList = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (PermissionUtils.isStoragePermissionGranted(requireContext())
-        ) {
-            // do work
-            viewModel.fetchAllVideos()
-        } else {
-            //request permissions
-            permissionLauncher.launch(permissionList)
-        }
+
+        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+            onGranted = {
+                viewModel.fetchAllVideos()
+            },
+            onDenied = {
+                toastS("Please Grant media permissions to access files")
+            }
+        )
     }
 
     companion object {
