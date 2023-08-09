@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,18 +31,6 @@ class VideosFragment : Fragment() {
         super.onAttach(context)
 
         viewModel = ViewModelProvider(requireActivity()).get(VideoViewModel::class.java)
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-            { result ->
-                var allGranted = true
-                result.forEach { isGranted ->
-                    allGranted = allGranted and isGranted.value
-                }
-
-                if (allGranted) {
-                    viewModel.fetchAllVideos()
-                }
-            }
     }
 
     override fun onCreateView(

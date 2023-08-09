@@ -47,14 +47,16 @@ class FoldersFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
-            onGranted = {
-                viewModel.fetchAllfolders()
-            },
-            onDenied = {
-                toastS("Please Grant media permissions to access files")
-            }
-        )
+//        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+//            onGranted = {
+//
+//            },
+//            onDenied = {
+//                toastS("Please Grant media permissions to access files")
+//            }
+//        )
+
+        viewModel.fetchAllfolders()
     }
 
 
