@@ -1,50 +1,30 @@
 package com.farhazulmullick.utils
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Parcelable
 import android.provider.Settings
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
 import com.farhazulmullick.permissionmanager.PermissionsActivity.Companion.startPermissionsActivity
 import com.farhazulmullick.permissionmanager.PermissionsCallback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 
-object PermissionUtils {
-    fun isStoragePermissionGranted(context: Context?): Boolean {
-        return if (context == null) {
-            false
-        } else {
-            (ActivityCompat.checkSelfPermission(
-                context,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED)
-        }
-    }
-
-
-    fun isSettingsPermissionGranted(context: Context) =
-        (ActivityCompat.checkSelfPermission(
-            context,
-            Manifest.permission.WRITE_SETTINGS
-        ) == PackageManager.PERMISSION_GRANTED)
-
-
-    fun hasWriteSettingsPermissions(context: Context): Boolean {
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            false
-        else Settings.System.canWrite(context)
-    }
-
+fun FragmentActivity.hasWriteSettingsPermissions(): Boolean {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        false
+    else Settings.System.canWrite(this)
 }
 
 fun FragmentActivity.checkForRequiredPermissions(
     permissionTypes: List<PermissionType>,
-    onGranted: () -> Unit,
-    onDenied: () -> Unit
+    onGranted: () -> Unit = {},
+    onDenied: () -> Unit = {}
 ) {
-    startPermissionsActivity(permissionTypes,
-        object : PermissionsCallback {
+
+    lifecycleScope.launch(Dispatchers.Main.immediate) {
+        startPermissionsActivity(permissionTypes, object : PermissionsCallback {
             override fun onGranted() {
                 onGranted()
             }
@@ -53,12 +33,13 @@ fun FragmentActivity.checkForRequiredPermissions(
                 onDenied()
             }
         })
+    }
+
 }
-
-
-enum class PermissionType {
-    STORAGE,
-    CAMERA,
-    WRITE_SETTINGS,
-    NOTIFICATION
+@Parcelize
+sealed class PermissionType: Parcelable {
+    object STORAGE: PermissionType()
+    object CAMERA: PermissionType()
+    object WRITE_SETTINGS: PermissionType()
+    object NOTIFICATION: PermissionType()
 }

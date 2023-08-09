@@ -4,19 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.farhazulmullick.utils.PermissionUtils
+import com.farhazulmullick.utils.hasWriteSettingsPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.databinding.ActivityExoplayerBinding
 import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding
@@ -25,14 +25,14 @@ import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.exoplayer2.audio.AudioAttributes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Locale
 
 class ExoplayerActivity : AppCompatActivity() {
     companion object {
@@ -204,7 +204,7 @@ class ExoplayerActivity : AppCompatActivity() {
                 Log.d(TAG, "addOnChangeListener() -> ${value * 100}")
                 val screenBrightnessValue = value * 255
                 alpha = 0.8f
-                val canWriteSettings = PermissionUtils.hasWriteSettingsPermissions(this@ExoplayerActivity)
+                val canWriteSettings = hasWriteSettingsPermissions()
 
                 if (canWriteSettings){
                     Settings.System

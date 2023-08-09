@@ -1,21 +1,19 @@
 package com.farhazulmullick.videoplayer.fragment
 
-import android.Manifest
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.adapter.VideoFragmentAdapter
 import com.farhazulmullick.utils.PermissionType
-import com.farhazulmullick.utils.PermissionUtils
 import com.farhazulmullick.utils.checkForRequiredPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.utils.toastS

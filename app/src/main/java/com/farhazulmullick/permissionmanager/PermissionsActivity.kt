@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
 import com.farhazulmullick.utils.PermissionType
+import com.google.android.exoplayer2.util.Log
 
 class PermissionsActivity : FragmentActivity() {
 
@@ -33,7 +34,19 @@ class PermissionsActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         overridePendingTransition(0, 0)
         window.addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        checkForRequiredPermissions(permissionTypes)
+
+        val permissions =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
+                intent?.getParcelableArrayListExtra(PERMISSIONS, PermissionType::class.java)
+                    ?: emptyList()
+            else intent?.getParcelableArrayListExtra(PERMISSIONS) ?: emptyList<PermissionType>()
+
+        checkForRequiredPermissions(permissions)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "hashCode: ${this@PermissionsActivity.hashCode()}")
     }
 
     private fun generatePermissionStrArray(permissionTypes: List<PermissionType>): List<String> {
@@ -85,7 +98,6 @@ class PermissionsActivity : FragmentActivity() {
     private fun checkForRequiredPermissions(permissionTypes: List<PermissionType>) {
 
         val permissions = generatePermissionStrArray(permissionTypes)
-
         permissionResult.launch(permissions.toTypedArray())
     }
 
@@ -96,9 +108,14 @@ class PermissionsActivity : FragmentActivity() {
     }
 
     companion object {
+        val TAG = "PermissionsActivity"
+        const val PERMISSIONS = "permissions"
 
         private lateinit var permissionTypes: List<PermissionType>
         private lateinit var permissionsCallbacks: PermissionsCallback
+
+        var intent: Intent? = null
+
         fun Context.startPermissionsActivity(
             permissionTypes: List<PermissionType>,
             listener: PermissionsCallback
@@ -106,8 +123,12 @@ class PermissionsActivity : FragmentActivity() {
             this@Companion.permissionTypes = permissionTypes
             this@Companion.permissionsCallbacks = listener
 
-            val intent = Intent(this, PermissionsActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+            if (intent == null) {
+                intent = Intent(this, PermissionsActivity::class.java)
+                    .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+            }
+            intent!!.putParcelableArrayListExtra(PERMISSIONS, ArrayList(permissionTypes))
+
             startActivity(intent)
         }
 
