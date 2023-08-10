@@ -22,6 +22,7 @@ import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackException
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
@@ -321,16 +322,7 @@ class ExoplayerActivity : AppCompatActivity() {
         player = SimpleExoPlayer.Builder(this).setTrackSelector(trackSelector).setAudioAttributes(
             audioAttributes!!, true
         ).build()
-        player?.addListener(object : Player.Listener {
-            override fun onPlaybackStateChanged(playbackState: Int) {
-                super.onPlaybackStateChanged(playbackState)
-                Log.d(TAG, "onPlaybackStateChanged() -> $playbackState")
-                if (playbackState == Player.STATE_ENDED) {
-
-                    viewModel.playNextVideo()
-                }
-            }
-        })
+        player?.addListener(PlaybackStates())
         binding.exoPlayerView.player = player
         val videoUri = intent?.getStringExtra("videoUri") ?: run {
             finish()
@@ -381,6 +373,16 @@ class ExoplayerActivity : AppCompatActivity() {
     private fun onUpBackbuttonClicked() {
         binding.btnVideoBack.setOnClickListener {
             finish()
+        }
+    }
+
+    inner class PlaybackStates: Player.Listener {
+        override fun onPlaybackStateChanged(playbackState: Int) {
+            super.onPlaybackStateChanged(playbackState)
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            super.onPlayerError(error)
         }
     }
 
