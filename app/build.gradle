@@ -8,6 +8,15 @@ plugins {
 android {
     compileSdk 33
 
+    signingConfigs {
+        vpRelease {
+            storeFile file("../videoplayer-keystore.jks")
+            storePassword "videoplayer"
+            keyAlias "videoplayer"
+            keyPassword "videoplayer"
+        }
+    }
+
     defaultConfig {
         applicationId "com.farhazulmullick.videoplayer"
         minSdk 21
@@ -25,7 +34,7 @@ android {
             shrinkResources true
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.vpRelease
         }
 
         debug {
