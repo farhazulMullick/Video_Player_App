@@ -10,6 +10,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import com.farhazulmullick.utils.PermissionType
+import com.farhazulmullick.utils.checkForRequiredPermissions
 import com.farhazulmullick.videoplayer.databinding.ActivityMainBinding
 import com.farhazulmullick.videoplayer.fragment.VideosFragment
 import com.farhazulmullick.videoplayer.fragment.FoldersFragment
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         // databinding
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        hostFragment(VideosFragment())
+
 
         toggle = ActionBarDrawerToggle(
             this,
@@ -51,6 +53,12 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+        checkForRequiredPermissions(permissionTypes = listOf(PermissionType.NOTIFICATION))
+        hostFragment(VideosFragment())
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 
     private fun setUptoolbar() {

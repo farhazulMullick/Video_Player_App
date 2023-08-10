@@ -5,7 +5,7 @@ import android.content.Intent
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.farhazulmullick.modal.Video
@@ -49,11 +49,10 @@ class VideoFragmentAdapter(val context: Context, val viewModel: VideoViewModel) 
                 .into(videoThumbnail)
 
             container.setOnClickListener {
-                viewModel.position.value = position
                 Intent(context, ExoplayerActivity::class.java).apply {
                     this.putExtra("videoUri", currentVideo.videoPath)
                     this.putExtra("videoTitle", currentVideo.videoTitle)
-                    ContextCompat.startActivity(context, this, null)
+                    startActivity(context, this, null)
                 }
             }
         }

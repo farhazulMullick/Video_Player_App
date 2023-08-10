@@ -1,21 +1,21 @@
 package com.farhazulmullick.videoplayer.fragment
 
-import android.Manifest
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.adapter.VideoFragmentAdapter
-import com.farhazulmullick.utils.PermissionUtils
+import com.farhazulmullick.utils.PermissionType
+import com.farhazulmullick.utils.checkForRequiredPermissions
 import com.farhazulmullick.utils.toast
+import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
 import com.farhazulmullick.viewmodel.VideoViewModel
 
@@ -31,18 +31,6 @@ class VideosFragment : Fragment() {
         super.onAttach(context)
 
         viewModel = ViewModelProvider(requireActivity()).get(VideoViewModel::class.java)
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-            { result ->
-                var allGranted = true
-                result.forEach { isGranted ->
-                    allGranted = allGranted and isGranted.value
-                }
-
-                if (allGranted) {
-                    viewModel.fetchAllVideos()
-                }
-            }
     }
 
     override fun onCreateView(
@@ -78,15 +66,15 @@ class VideosFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        val permissionList = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (PermissionUtils.isStoragePermissionGranted(requireContext())
-        ) {
-            // do work
-            viewModel.fetchAllVideos()
-        } else {
-            //request permissions
-            permissionLauncher.launch(permissionList)
-        }
+
+        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+            onGranted = {
+                viewModel.fetchAllVideos()
+            },
+            onDenied = {
+                toastS("Please Grant media permissions to access files")
+            }
+        )
     }
 
     companion object {

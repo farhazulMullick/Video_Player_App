@@ -1,31 +1,45 @@
 package com.farhazulmullick.utils
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
-import android.os.Build.VERSION_CODES.M
+import android.os.Parcelable
 import android.provider.Settings
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.lifecycleScope
+import com.farhazulmullick.permissionmanager.PermissionsActivity.Companion.startPermissionsActivity
+import com.farhazulmullick.permissionmanager.PermissionsCallback
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.parcelize.Parcelize
 
-object PermissionUtils {
-    fun isStoragePermissionGranted(context: Context) =
-        (ActivityCompat.checkSelfPermission(
-            context,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED)
+fun FragmentActivity.hasWriteSettingsPermissions(): Boolean {
+    return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
+        false
+    else Settings.System.canWrite(this)
+}
 
-    fun isSettingsPermissionGranted(context: Context) =
-        (ActivityCompat.checkSelfPermission(
-            context,
-            Manifest.permission.WRITE_SETTINGS
-        ) == PackageManager.PERMISSION_GRANTED)
+fun FragmentActivity.checkForRequiredPermissions(
+    permissionTypes: List<PermissionType>,
+    onGranted: () -> Unit = {},
+    onDenied: () -> Unit = {}
+) {
 
+    lifecycleScope.launch(Dispatchers.Main.immediate) {
+        startPermissionsActivity(permissionTypes, object : PermissionsCallback {
+            override fun onGranted() {
+                onGranted()
+            }
 
-    fun hasWriteSettingsPermissions(context: Context): Boolean{
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M)
-            false
-        else Settings.System.canWrite(context)
+            override fun onDenied() {
+                onDenied()
+            }
+        })
     }
+
+}
+@Parcelize
+sealed class PermissionType: Parcelable {
+    object STORAGE: PermissionType()
+    object CAMERA: PermissionType()
+    object WRITE_SETTINGS: PermissionType()
+    object NOTIFICATION: PermissionType()
 }
