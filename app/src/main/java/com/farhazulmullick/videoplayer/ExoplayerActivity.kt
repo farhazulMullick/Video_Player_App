@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.farhazulmullick.utils.hasWriteSettingsPermissions
@@ -64,6 +63,8 @@ class ExoplayerActivity : AppCompatActivity() {
         setExoControlsVisibility()
 
         initializeBindings()
+
+        createPlayer()
     }
 
 
@@ -165,12 +166,6 @@ class ExoplayerActivity : AppCompatActivity() {
         binding.exoPrev.setOnClickListener {
             viewModel.playPrevVideo()
         }
-
-
-        viewModel.position.observe(this, Observer {
-            Log.d(TAG, "position $it")
-            createPlayer(it)
-        })
 
         // Exoplayer full_screen mode
         binding.btnFullScreen.setOnClickListener {
@@ -312,7 +307,7 @@ class ExoplayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun createPlayer(position: Int) {
+    private fun createPlayer() {
         // release old player
         player?.release()
 
@@ -337,10 +332,13 @@ class ExoplayerActivity : AppCompatActivity() {
             }
         })
         binding.exoPlayerView.player = player
-        val videoUri = viewModel.videoList.value?.get(position)?.videoPath
+        val videoUri = intent?.getStringExtra("videoUri") ?: run {
+            finish()
+            return
+        }
         val videoTitle = intent.getStringExtra("videoTitle")
         try {
-            val mediaItem = MediaItem.fromUri(videoUri!!)
+            val mediaItem = MediaItem.fromUri(videoUri)
             binding.tvVideoTitle.text = videoTitle.toString()
             binding.tvVideoTitle.isSelected = true
             player?.setMediaItem(mediaItem)

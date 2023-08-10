@@ -145,7 +145,7 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/exo_media_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,121 +156,90 @@
         app:layout_constraintTop_toBottomOf="@+id/exo_top_container"
         app:layout_constraintVertical_bias="0.9">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center|center_horizontal"
-            android:orientation="horizontal"
+        <ImageButton
+            android:id="@+id/exo_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/prev_video_btn"
+            android:focusable="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_exo_previous"
+            app:tint="@color/white"
+            app:layout_constraintTop_toTopOf="@id/exo_seek_backword"
+            app:layout_constraintBottom_toBottomOf="@id/exo_seek_backword"
+            app:layout_constraintEnd_toStartOf="@id/exo_seek_backword"/>
+
+        <ImageButton
+            android:id="@+id/exo_seek_backword"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            app:layout_constraintHorizontal_bias=".7"
+            android:contentDescription="@string/seek_back"
+            android:focusable="true"
+            android:src="@drawable/ic_exo_icon_rewind"
+            app:tint="@color/white"
+            app:layout_constraintTop_toTopOf="@id/exo_play_pause"
+            app:layout_constraintBottom_toBottomOf="@id/exo_play_pause"
+            app:layout_constraintEnd_toStartOf="@id/exo_play_pause"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <ImageButton
+            android:id="@+id/exo_play_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:contentDescription="@string/play_and_pause_button"
+            app:srcCompat="@drawable/ic_exo_icon_play"
+            app:tint="@color/white" />
 
 
-            <ImageButton
-                android:id="@+id/exo_prev"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/prev_video_btn"
-                android:focusable="true"
-                android:src="@drawable/ic_exo_previous"
-                app:tint="@color/white" />
+        <ImageButton
+            android:id="@+id/exo_seek_forward"
+            style="@style/ExoMediaButton.FastForward"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            app:layout_constraintHorizontal_bias=".3"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/seek_forward"
+            android:focusable="true"
+            android:src="@drawable/ic_exo_icon_fastforward"
+            app:tint="@color/white"
+            app:layout_constraintTop_toTopOf="@id/exo_play_pause"
+            app:layout_constraintBottom_toBottomOf="@id/exo_play_pause"
+            app:layout_constraintStart_toEndOf="@id/exo_play_pause"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <ImageButton
-                android:id="@+id/exo_seek_backword"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/seek_back"
-                android:focusable="true"
-                android:src="@drawable/ic_exo_icon_rewind"
-                app:tint="@color/white" />
-
-            <ImageButton
-                android:id="@+id/exo_play_pause"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:focusable="true"
-                android:contentDescription="@string/play_and_pause_button"
-                app:srcCompat="@drawable/ic_exo_icon_play"
-                app:tint="@color/white" />
-
-
-            <ImageButton
-                android:id="@+id/exo_seek_forward"
-                style="@style/ExoMediaButton.FastForward"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/seek_forward"
-                android:focusable="true"
-                android:src="@drawable/ic_exo_icon_fastforward"
-                app:tint="@color/white" />
-
-            <ImageView
-                android:id="@+id/exo_next"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:contentDescription="@string/next_video_btn"
-                android:focusable="true"
-                android:src="@drawable/ic_exo_next"
-                app:tint="@color/white" />
-
-        </LinearLayout>
-    </RelativeLayout>
-
-    <!--<com.google.android.material.slider.Slider
-        android:id="@+id/exo_volume_slider"
-        android:alpha="0"
-        android:padding="20dp"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:rotation="270"
-        app:thumbColor="@color/pink"
-        android:translationX="32dp"
-        app:trackHeight="6dp"
-        app:trackColorActive="@color/pink"
-        app:trackColorInactive="@color/ripple_pink"
-        app:haloColor="@color/ripple_pink"
-        android:value="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/exo_media_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/exo_media_container" />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/exo_brightness_slider"
-        android:layout_width="150dp"
-        android:padding="20dp"
-        android:alpha="0"
-        android:layout_height="wrap_content"
-        android:rotation="270"
-        app:thumbColor="@color/yellow"
-        android:translationX="-32dp"
-        app:trackHeight="6dp"
-        app:trackColorActive="@color/yellow"
-        app:trackColorInactive="@color/light_yellow"
-        app:haloColor="@color/light_yellow"
-        android:value="0.5"
-        app:layout_constraintBottom_toBottomOf="@+id/exo_media_container"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/exo_media_container" />-->
+        <ImageView
+            android:id="@+id/exo_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:contentDescription="@string/next_video_btn"
+            android:focusable="true"
+            android:visibility="gone"
+            android:src="@drawable/ic_exo_next"
+            app:tint="@color/white"
+            app:layout_constraintTop_toTopOf="@id/exo_seek_forward"
+            app:layout_constraintBottom_toBottomOf="@id/exo_seek_forward"
+            app:layout_constraintStart_toEndOf="@id/exo_seek_forward"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <RelativeLayout
