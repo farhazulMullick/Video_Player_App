@@ -123,7 +123,8 @@
             app:thumbColor="@color/color_brightness_slider_thumb_color"
             app:trackColorActive="@color/color_brightness_slider_thumb_color"
             app:trackColorInactive="@color/color_brightness_slider_track_inactive"
-            app:trackHeight="6dp" />
+            app:trackHeight="6dp"
+            android:visibility="gone"/>
 
         <com.google.android.material.slider.Slider
             android:id="@+id/exo_volume_slider"
