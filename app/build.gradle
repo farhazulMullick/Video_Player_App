@@ -86,4 +86,7 @@ dependencies {
     //fragment extensions
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
 
+    //in app updates
+    implementation "com.google.android.play:app-update-ktx:$update_checker_version"
+
 }

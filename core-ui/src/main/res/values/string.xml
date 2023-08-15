@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_update_failed">Could not Install Updates</string>
+    <string name="app_updated">Update Complete!</string>
+    <string name="app_updating">App updating!</string>
+</resources>
