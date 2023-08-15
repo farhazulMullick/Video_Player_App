@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".fragment.VideosFragment">
+        tools:context="com.farhazulmullick.feature.allvideos.ui.fragments.VideosFragment">
 
         <TextView
             android:id="@+id/tv_total_videos"

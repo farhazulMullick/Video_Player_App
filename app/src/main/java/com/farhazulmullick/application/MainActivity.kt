@@ -1,20 +1,16 @@
-package com.farhazulmullick.videoplayer
+package com.farhazulmullick.application
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import com.farhazulmullick.utils.PermissionType
-import com.farhazulmullick.utils.checkForRequiredPermissions
+import com.farhazulmullick.core_ui.utils.checkForRequiredPermissions
+import com.farhazulmullick.feature.allvideos.ui.fragments.VideosFragment
+import com.farhazulmullick.feature.folders.ui.fragments.FoldersFragment
+import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.ActivityMainBinding
-import com.farhazulmullick.videoplayer.fragment.VideosFragment
-import com.farhazulmullick.videoplayer.fragment.FoldersFragment
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -53,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
-        checkForRequiredPermissions(permissionTypes = listOf(PermissionType.NOTIFICATION))
+        checkForRequiredPermissions(permissionTypes = listOf(com.farhazulmullick.core_ui.utils.PermissionType.NOTIFICATION))
         hostFragment(VideosFragment())
     }
 

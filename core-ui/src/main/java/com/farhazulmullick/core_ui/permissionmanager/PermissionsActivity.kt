@@ -1,15 +1,15 @@
-package com.farhazulmullick.permissionmanager
+package com.farhazulmullick.core_ui.permissionmanager
 
 import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
-import com.farhazulmullick.utils.PermissionType
-import com.google.android.exoplayer2.util.Log
+import com.farhazulmullick.core_ui.utils.PermissionType
 
 class PermissionsActivity : FragmentActivity() {
 
@@ -120,8 +120,8 @@ class PermissionsActivity : FragmentActivity() {
             permissionTypes: List<PermissionType>,
             listener: PermissionsCallback
         ) {
-            this@Companion.permissionTypes = permissionTypes
-            this@Companion.permissionsCallbacks = listener
+            Companion.permissionTypes = permissionTypes
+            permissionsCallbacks = listener
 
             if (intent == null) {
                 intent = Intent(this, PermissionsActivity::class.java)

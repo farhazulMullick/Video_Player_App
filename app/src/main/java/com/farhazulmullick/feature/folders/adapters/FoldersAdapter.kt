@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.feature.folders.modals.Folder
-import com.farhazulmullick.videoplayer.FolderDetailsActivity
+import com.farhazulmullick.feature.folders.ui.activity.FolderDetailsActivity
 import com.farhazulmullick.videoplayer.databinding.LayoutRowFoldersBinding
 
 class FoldersAdapter(private val context: Context) :

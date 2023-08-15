@@ -1,4 +1,4 @@
-package com.farhazulmullick.permissionmanager
+package com.farhazulmullick.core_ui.permissionmanager
 
 interface PermissionsCallback {
     fun onGranted()
