@@ -1,12 +1,11 @@
-package com.farhazulmullick.adapter
+package com.farhazulmullick.feature.folders.adapters
 
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.farhazulmullick.modal.Folder
+import com.farhazulmullick.feature.folders.modals.Folder
 import com.farhazulmullick.videoplayer.FolderDetailsActivity
 import com.farhazulmullick.videoplayer.databinding.LayoutRowFoldersBinding
 
@@ -22,14 +21,14 @@ class FoldersAdapter(private val context: Context) :
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FoldersAdapter.FolderViewHolder {
+    ): FolderViewHolder {
         val binding: LayoutRowFoldersBinding =
             LayoutRowFoldersBinding.inflate(LayoutInflater.from(context), parent, false)
 
         return FolderViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FoldersAdapter.FolderViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FolderViewHolder, position: Int) {
         val currentData = folderList[position]
         holder.binding.apply {
             tvVideoTitle.text =  currentData.folderName

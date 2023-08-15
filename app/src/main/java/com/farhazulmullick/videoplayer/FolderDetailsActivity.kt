@@ -6,9 +6,9 @@ import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.farhazulmullick.adapter.VideoFragmentAdapter
+import com.farhazulmullick.feature.allvideos.adapter.VideoFragmentAdapter
 import com.farhazulmullick.videoplayer.databinding.ActivityFolderDetailsBinding
-import com.farhazulmullick.viewmodel.VideoViewModel
+import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
 
 class FolderDetailsActivity : AppCompatActivity() {
     private var _binding : ActivityFolderDetailsBinding? = null

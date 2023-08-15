@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.farhazulmullick.viewmodel.VideoViewModel" />
+            type="com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel" />
     </data>
 
     <LinearLayout

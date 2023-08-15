@@ -19,7 +19,7 @@ import com.farhazulmullick.utils.hasWriteSettingsPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.databinding.ActivityExoplayerBinding
 import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding
-import com.farhazulmullick.viewmodel.VideoViewModel
+import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
