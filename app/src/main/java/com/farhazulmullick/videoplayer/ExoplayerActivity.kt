@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.farhazulmullick.utils.hasWriteSettingsPermissions
+import com.farhazulmullick.core_ui.utils.hasWriteSettingsPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.databinding.ActivityExoplayerBinding
 import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding

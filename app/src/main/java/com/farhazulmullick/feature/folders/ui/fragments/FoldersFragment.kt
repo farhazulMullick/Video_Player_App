@@ -1,4 +1,4 @@
-package com.farhazulmullick.videoplayer.fragment
+package com.farhazulmullick.feature.folders.ui.fragments
 
 import android.content.Context
 import android.os.Bundle

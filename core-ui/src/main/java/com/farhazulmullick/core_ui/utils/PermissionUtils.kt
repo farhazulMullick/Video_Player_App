@@ -1,12 +1,11 @@
-package com.farhazulmullick.utils
+package com.farhazulmullick.core_ui.utils
 
 import android.os.Build
 import android.os.Parcelable
 import android.provider.Settings
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import com.farhazulmullick.permissionmanager.PermissionsActivity.Companion.startPermissionsActivity
-import com.farhazulmullick.permissionmanager.PermissionsCallback
+import com.farhazulmullick.core_ui.permissionmanager.PermissionsActivity.Companion.startPermissionsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.parcelize.Parcelize
@@ -24,7 +23,8 @@ fun FragmentActivity.checkForRequiredPermissions(
 ) {
 
     lifecycleScope.launch(Dispatchers.Main.immediate) {
-        startPermissionsActivity(permissionTypes, object : PermissionsCallback {
+        startPermissionsActivity(permissionTypes, object :
+            com.farhazulmullick.core_ui.permissionmanager.PermissionsCallback {
             override fun onGranted() {
                 onGranted()
             }

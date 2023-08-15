@@ -1,4 +1,4 @@
-package com.farhazulmullick.videoplayer.fragment
+package com.farhazulmullick.feature.allvideos.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.farhazulmullick.feature.allvideos.adapter.VideoFragmentAdapter
-import com.farhazulmullick.utils.PermissionType
-import com.farhazulmullick.utils.checkForRequiredPermissions
+import com.farhazulmullick.core_ui.utils.PermissionType
+import com.farhazulmullick.core_ui.utils.checkForRequiredPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
@@ -67,7 +67,7 @@ class VideosFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+        activity?.checkForRequiredPermissions(listOf(com.farhazulmullick.core_ui.utils.PermissionType.STORAGE),
             onGranted = {
                 viewModel.fetchAllVideos()
             },

@@ -1,4 +1,4 @@
-package com.farhazulmullick.videoplayer
+package com.farhazulmullick.feature.folders.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
