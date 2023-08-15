@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity() {
         // databinding
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
         toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
@@ -64,17 +62,19 @@ class MainActivity : AppCompatActivity() {
             }
             return@setOnItemSelectedListener true
         }
+        checkIfAnyUpdateIsAvailable()
         checkForRequiredPermissions(
             permissionTypes = listOf(com.farhazulmullick.core_ui.utils.PermissionType.NOTIFICATION),
             onGranted = {
-                hostFragment(VideosFragment())
+                afterPermissions()
             },
             onDenied = {
-                hostFragment(VideosFragment())
+                afterPermissions()
             })
+    }
 
-
-        checkIfAnyUpdateIsAvailable()
+    private fun afterPermissions() {
+        hostFragment(VideosFragment())
     }
 
     override fun onStart() {
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
         appUpdateManager.startUpdateFlowForResult(
             updateInfo,
             appUpdateResultLauncher,
-            AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
+            AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build()
         )
     }
 
