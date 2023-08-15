@@ -1,4 +1,4 @@
-package com.farhazulmullick.adapter
+package com.farhazulmullick.feature.allvideos.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.farhazulmullick.modal.Video
+import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.videoplayer.ExoplayerActivity
 import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.LayoutRowVideoPlayerBinding
-import com.farhazulmullick.viewmodel.VideoViewModel
+import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
 
 class VideoFragmentAdapter(val context: Context, val viewModel: VideoViewModel) : RecyclerView.Adapter<VideoFragmentAdapter.VideoViewHolder>() {
     inner class VideoViewHolder(val binding: LayoutRowVideoPlayerBinding) :

@@ -1,4 +1,4 @@
-package com.farhazulmullick.modal
+package com.farhazulmullick.feature.allvideos.modal
 
 import android.net.Uri
 

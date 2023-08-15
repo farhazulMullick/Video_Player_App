@@ -11,13 +11,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.farhazulmullick.adapter.VideoFragmentAdapter
+import com.farhazulmullick.feature.allvideos.adapter.VideoFragmentAdapter
 import com.farhazulmullick.utils.PermissionType
 import com.farhazulmullick.utils.checkForRequiredPermissions
 import com.farhazulmullick.utils.toast
 import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
-import com.farhazulmullick.viewmodel.VideoViewModel
+import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
 
 class VideosFragment : Fragment() {
     private var _binding: FragmentAllVideosBinding? = null

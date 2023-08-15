@@ -1,4 +1,4 @@
-package com.farhazulmullick.viewmodel
+package com.farhazulmullick.feature.allvideos.viewmodel
 
 import android.app.Application
 import android.content.ContentUris
@@ -18,8 +18,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.farhazulmullick.modal.Folder
-import com.farhazulmullick.modal.Video
+import com.farhazulmullick.feature.folders.modals.Folder
+import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.utils.getLongValue
 import com.farhazulmullick.utils.getStringValue
 import kotlinx.coroutines.Dispatchers
