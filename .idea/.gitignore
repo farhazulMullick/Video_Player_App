@@ -3,3 +3,9 @@
 /workspace.xml
 *.apk
 /build
+/codestream.xml
+/compiler.xml
+/gradle.xml
+/kotlinc.xml
+/misc.xml
+/vcs.xml
