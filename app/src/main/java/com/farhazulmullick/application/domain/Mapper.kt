@@ -1,4 +1,4 @@
-package com.farhazulmullick.application.mapper
+package com.farhazulmullick.application.domain
 
 import android.util.Log
 
