@@ -9,6 +9,7 @@ import com.farhazulmullick.utils.EMPTY
 class VideoDetails {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "video_id")
     val videoId: String = String.EMPTY
 
     @ColumnInfo(name = "video_title")
