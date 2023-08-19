@@ -50,16 +50,18 @@
     </style>
 
     <style name="customTitleStyle">
-        <item name="android:fontFamily">@font/poppins_bold</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="customSubTitleStyle">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:padding">5dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">4dp</item>
     </style>
 
     <style name="exoplayerViewStyle" parent="Theme.MaterialComponents.Light.NoActionBar">

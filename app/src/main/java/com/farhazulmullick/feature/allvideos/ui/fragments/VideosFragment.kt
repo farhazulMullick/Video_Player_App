@@ -24,7 +24,6 @@ class VideosFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var viewModel: VideoViewModel
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private lateinit var videoAdapter: VideoFragmentAdapter
 
     override fun onAttach(context: Context) {
@@ -47,6 +46,15 @@ class VideosFragment : Fragment() {
                 videoAdapter.setVideos(it)
             }
         })
+
+        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+            onGranted = {
+                viewModel.fetchAllVideos()
+            },
+            onDenied = {
+                toastS("Please Grant media permissions to access files")
+            }
+        )
         return binding.root
     }
 
@@ -62,19 +70,6 @@ class VideosFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        activity?.checkForRequiredPermissions(listOf(com.farhazulmullick.core_ui.utils.PermissionType.STORAGE),
-            onGranted = {
-                viewModel.fetchAllVideos()
-            },
-            onDenied = {
-                toastS("Please Grant media permissions to access files")
-            }
-        )
     }
 
     companion object {
