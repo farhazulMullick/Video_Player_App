@@ -6,6 +6,7 @@ buildscript {
         lifecycle_version = "2.6.1"
         exoplayer_version = "2.15.1"
         update_checker_version = "2.1.0"
+        room_version = "2.5.2"
     }
     repositories {
         google()
