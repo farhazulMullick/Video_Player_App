@@ -51,12 +51,14 @@ class MainActivity : AppCompatActivity() {
 
         setUptoolbar()
         binding.bottomNavView.setOnItemSelectedListener {
-            when (it.itemId) {
+             when (it.itemId) {
                 R.id.all_videos -> {
+                    if (supportFragmentManager.findFragmentById(R.id.fragment_container_layout) !is VideosFragment)
                     hostFragment(VideosFragment())
                 }
 
                 R.id.all_folders -> {
+                    if (supportFragmentManager.findFragmentById(R.id.fragment_container_layout) !is FoldersFragment)
                     hostFragment(FoldersFragment())
                 }
             }
