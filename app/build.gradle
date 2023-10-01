@@ -59,7 +59,13 @@ android {
     buildFeatures{
         dataBinding = true
         viewBinding = true
+        compose = true
     }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "$compiler_extension"
+    }
+
 }
 
 dependencies {
@@ -102,5 +108,17 @@ dependencies {
     //hilt-dependency injection
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    //compose
+    def composeBom =  platform("androidx.compose:compose-bom:$compose_bom")
+    implementation composeBom
+    androidTestImplementation composeBom
+
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.runtime:runtime-livedata'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewModel_compose"
 
 }
