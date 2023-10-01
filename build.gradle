@@ -2,10 +2,13 @@
 buildscript {
     ext {
         gradle_version = "7.2.2"
-        kotlin_version = "1.8.0"
+        kotlin_version = "1.9.0"
         lifecycle_version = "2.6.1"
         exoplayer_version = "2.15.1"
         update_checker_version = "2.1.0"
+        compose_bom = "2023.01.00"
+        viewModel_compose = "2.6.2"
+        compiler_extension = "1.5.0"
     }
     repositories {
         google()
