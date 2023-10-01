@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.compose.material3.MaterialTheme
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -39,7 +40,11 @@ class VideosFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAllVideosBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
         viewModel.videoList.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
@@ -55,7 +60,12 @@ class VideosFragment : Fragment() {
                 toastS("Please Grant media permissions to access files")
             }
         )
-        return binding.root
+
+        binding.continueCpv.setContent {
+            MaterialTheme {
+
+            }
+        }
     }
 
     private fun setUpRecyclerView() {
