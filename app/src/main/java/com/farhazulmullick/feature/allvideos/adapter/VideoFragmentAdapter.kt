@@ -43,9 +43,7 @@ class VideoFragmentAdapter(val context: Context, val viewModel: VideoViewModel) 
 
             Glide.with(context)
                 .load(currentVideo.videoPath)
-                .apply {
-                    this.placeholder(R.mipmap.ic_launcher)
-                }
+                .placeholder(R.mipmap.ic_launcher)
                 .into(videoThumbnail)
 
             container.setOnClickListener {

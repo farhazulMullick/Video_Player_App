@@ -4,35 +4,52 @@ package com.farhazulmullick.feature.allvideos.ui.composable
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
+import androidx.core.net.toUri
+import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
+import coil.size.Size
+import com.farhazulmullick.core_ui.commoncomposable.YSpacer
 import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.videoplayer.R
+import java.io.File
 
 @Composable
 fun ContinueWatch(
     videoList: List<Video>,
-    onVideoItemClicked: () -> Unit
+    onVideoItemClicked: (Video) -> Unit
 ) {
     Column(
         modifier = Modifier
-            .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.background)
             .padding(all = 8.dp)
     ) {
@@ -41,9 +58,12 @@ fun ContinueWatch(
             text = "Continue Watching",
             style = MaterialTheme.typography.titleMedium)
 
-        YSpacer(gap = 8.dp)
+        YSpacer(gap = 16.dp)
 
-        LazyRow(content = {
+        LazyRow(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
+            content = {
             itemsIndexed (items = videoList){index: Int, item: Video ->
                 VideoUi(videoItem = item, onVideoItemClicked = onVideoItemClicked)
             }
@@ -53,33 +73,29 @@ fun ContinueWatch(
 }
 
 @Composable
-fun YSpacer(gap: Dp){
-    Spacer(modifier = Modifier.height(height = gap))
-}
-
-@Composable
 fun VideoUi(
     videoItem: Video,
-    onVideoItemClicked: () -> Unit = {}
+    onVideoItemClicked: (Video) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
-            .clickable { onVideoItemClicked() }
-            .background(color = Color.Unspecified, shape = MaterialTheme.shapes.medium)
+            .width(width = 120.dp)
+            .clickable { onVideoItemClicked(videoItem) }
     ){
         Image(
             modifier = Modifier
-                .width(width = 200.dp)
+                .width(width = 120.dp)
+                .clip(shape = MaterialTheme.shapes.medium)
                 .aspectRatio(ratio = 1.7f),
             painter = painterResource(id = R.drawable.ic_play_round_black),
             contentDescription = null
         )
 
         Text(
-            modifier = Modifier.padding(all = 8.dp),
+            modifier = Modifier.width(width = 120.dp).padding(all = 8.dp),
             text = videoItem.videoTitle,
             maxLines = 2,
-            style = MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodySmall
         )
     }
 }
