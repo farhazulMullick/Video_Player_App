@@ -1,6 +1,8 @@
 package com.farhazulmullick.feature.allvideos.ui.composable
 
 
+import android.graphics.Bitmap
+import android.provider.MediaStore.Images.Media.getBitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -24,9 +26,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -39,6 +48,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import coil.size.Size
 import com.farhazulmullick.core_ui.commoncomposable.YSpacer
+import com.farhazulmullick.core_ui.extensions.getBitmap
 import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.videoplayer.R
 import java.io.File
@@ -50,7 +60,6 @@ fun ContinueWatch(
 ) {
     Column(
         modifier = Modifier
-            .background(color = MaterialTheme.colorScheme.background)
             .padding(all = 8.dp)
     ) {
 
@@ -77,22 +86,33 @@ fun VideoUi(
     videoItem: Video,
     onVideoItemClicked: (Video) -> Unit = {}
 ) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
-            .width(width = 120.dp)
+            .width(width = 110.dp)
             .clickable { onVideoItemClicked(videoItem) }
     ){
-        Image(
-            modifier = Modifier
-                .width(width = 120.dp)
-                .clip(shape = MaterialTheme.shapes.medium)
-                .aspectRatio(ratio = 1.7f),
-            painter = painterResource(id = R.drawable.ic_play_round_black),
-            contentDescription = null
-        )
+        var thumbnail by remember { mutableStateOf<Bitmap?>(null) }
+        LaunchedEffect(key1 = true, block = {
+            thumbnail = videoItem.videoUri?.let{ context.getBitmap(uri = it) }
+        })
+
+        thumbnail?.let { bitmap ->
+            Image(
+                modifier = Modifier
+                    .width(width = 110.dp)
+                    .clip(shape = MaterialTheme.shapes.small)
+                    .aspectRatio(ratio = 1.5f),
+                bitmap = bitmap.asImageBitmap(),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
+        }
 
         Text(
-            modifier = Modifier.width(width = 120.dp).padding(all = 8.dp),
+            modifier = Modifier
+                .width(width = 120.dp)
+                .padding(all = 8.dp),
             text = videoItem.videoTitle,
             maxLines = 2,
             style = MaterialTheme.typography.bodySmall
