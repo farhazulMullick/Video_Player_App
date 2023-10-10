@@ -2,7 +2,6 @@ package com.farhazulmullick.feature.allvideos.ui.composable
 
 
 import android.graphics.Bitmap
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,11 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.farhazulmullick.core_ui.commoncomposable.YSpacer
 import com.farhazulmullick.core_ui.extensions.getBitmap
-import com.farhazulmullick.core_ui.utils.PermissionType
-import com.farhazulmullick.core_ui.utils.checkForRequiredPermissions
 import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
-import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.R
 
 
