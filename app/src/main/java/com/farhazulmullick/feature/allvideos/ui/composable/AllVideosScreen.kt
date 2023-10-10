@@ -53,9 +53,8 @@ fun VideosScreen(
     onVideoItemClicked: (Video) -> Unit
 ) {
     val videoList by viewModel.videoList.observeAsState()
-    val context = LocalContext.current
 
-    Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+    Column(modifier = Modifier.padding(all = 8.dp)) {
         ContinueWatch(
             videoList = videoList ?: emptyList(),
             onVideoItemClicked = onVideoItemClicked
@@ -81,7 +80,7 @@ fun ContinueWatch(
 
         Text(
             text = "Continue Watching",
-            style = MaterialTheme.typography.titleMedium)
+            style = MaterialTheme.typography.titleLarge)
 
         YSpacer(gap = 16.dp)
 
