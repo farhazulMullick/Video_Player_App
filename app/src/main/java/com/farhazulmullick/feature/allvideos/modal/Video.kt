@@ -11,6 +11,8 @@ data class Video(
     val videoSize: Long= 0L,
     val videoDateAdded: String = String.EMPTY,
     val videoFolderName: String = String.EMPTY,
-    val videoPath: String = String.EMPTY
+    val videoPath: String = String.EMPTY,
 
+    // Last watch time in seconds.
+    val lastWatchTime: Long = 0L
 )

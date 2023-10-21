@@ -18,26 +18,31 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.farhazulmullick.data.local.recentwatch.datasource.RecentWatchDataSource
+import com.farhazulmullick.data.local.recentwatch.entity.VideoDetails
 import com.farhazulmullick.feature.folders.modals.Folder
 import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.utils.getLongValue
 import com.farhazulmullick.utils.getStringValue
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.io.FileNotFoundException
+import javax.inject.Inject
 
-class VideoViewModel(application: Application) : AndroidViewModel(application) {
+class VideoViewModel @Inject constructor(
+    application: Application,
+    val recentWatchDataSource: RecentWatchDataSource
+) : AndroidViewModel(application) {
     companion object {
         const val TAG = "VideoViewModel"
-
-        private var instance: VideoViewModel? = null
-        fun getInstance(application: Application) =
-            instance ?: synchronized(VideoViewModel::class.java){
-                VideoViewModel(application = application).also { instance = it }
-            }
     }
 
     private val contentUri: Uri? get() {
@@ -235,6 +240,16 @@ class VideoViewModel(application: Application) : AndroidViewModel(application) {
         else{
             position.value = position.value?.minus(1)
         }
+    }
+
+    fun getRecentVideoItems(): StateFlow<List<Video>> {
+        val recentWatchList = MutableStateFlow<List<Video>>(emptyList())
+        viewModelScope.launch(Dispatchers.IO) {
+            recentWatchDataSource.getVideos().collectLatest {
+                recentWatchList.emit(it)
+            }
+        }
+        return recentWatchList
     }
 
 

@@ -11,24 +11,28 @@ import com.farhazulmullick.utils.EMPTY
  */
 
 @Entity(tableName = "video_details")
-class VideoDetails {
+data class VideoDetails(
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "video_id")
-    var videoId: Int = 0
+    var videoId: String = String.EMPTY,
 
     @ColumnInfo(name = "video_title")
-    var videoTitle: String = String.EMPTY
+    var videoTitle: String? = String.EMPTY,
 
     @ColumnInfo("thumbnail")
-    var thumbnail: String = String.EMPTY
+    var thumbnail: String? = String.EMPTY,
 
     @ColumnInfo("video_duration")
-    var duration: Long = 0L
+    var duration: Long? = 0L,
 
     @ColumnInfo("last_watch_time")
-    var lastWatchTime: Long = 0L
+    var lastWatchTime: Long? = 0L,
 
     @ColumnInfo("video_path")
-    var videoPath: String = String.EMPTY
-}
+    var videoPath: String? = String.EMPTY,
+
+    @ColumnInfo("video_size")
+    var videoSize: Long? = 0L,
+
+)

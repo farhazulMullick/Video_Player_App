@@ -7,7 +7,7 @@ buildscript {
         exoplayer_version = "2.15.1"
         update_checker_version = "2.1.0"
         room_version = "2.5.2"
-        hilt_version = "2.46.1"
+        hilt_version = "2.48"
         compose_bom = "2023.01.00"
         viewModel_compose = "2.6.2"
         compiler_extension = "1.5.0"

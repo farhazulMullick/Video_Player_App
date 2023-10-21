@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.farhazulmullick.data.local.recentwatch.dao.VideosDao
 import com.farhazulmullick.data.local.recentwatch.entity.VideoDetails
 
 const val DATABASE_NAME = "app_database"
@@ -14,6 +15,9 @@ const val DATABASE_NAME = "app_database"
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+
+    abstract fun getVideosDao(): VideosDao
+
     companion object{
         var INSTANCE: AppDatabase? = null
     }
@@ -29,4 +33,4 @@ fun Context.buildVideoPlayerDatabase() = AppDatabase.INSTANCE ?: synchronized(lo
 
         AppDatabase.INSTANCE = instance
         instance
-    }
+}
