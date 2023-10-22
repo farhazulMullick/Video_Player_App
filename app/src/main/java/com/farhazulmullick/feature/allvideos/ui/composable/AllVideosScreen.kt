@@ -58,7 +58,7 @@ fun VideosScreen(
     val recentVideos by remember { viewModel.getRecentVideoItems() }.collectAsStateWithLifecycle()
     val videoList by viewModel.videoList.observeAsState()
 
-    LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
+    LazyColumn(modifier = Modifier.padding(horizontal = 8.dp)) {
 
         item(key = recentVideos) {
             AnimatedVisibility(visible = recentVideos.isNotEmpty()) {
@@ -66,8 +66,6 @@ fun VideosScreen(
                     videoList = recentVideos,
                     onVideoItemClicked = onVideoItemClicked
                 )
-
-                YSpacer(gap = 16.dp)
             }
         }
 
@@ -86,13 +84,12 @@ fun ContinueWatch(
     onVideoItemClicked: (Video) -> Unit
 ) {
     Column {
-
+        YSpacer(gap = 12.dp)
         Text(
             text = "Continue Watching",
-            style = MaterialTheme.typography.titleLarge)
-
+            style = MaterialTheme.typography.headlineMedium
+        )
         YSpacer(gap = 16.dp)
-
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(space = 12.dp),
@@ -101,6 +98,7 @@ fun ContinueWatch(
                 VideoUiH(videoItem = item, onVideoItemClicked = onVideoItemClicked)
             }
         })
+        YSpacer(gap = 16.dp)
     }
 
 }
@@ -207,6 +205,14 @@ fun ThumbnailImage(thumbnail: Bitmap) {
 fun LazyListScope.AllVideos(
     videoList: List<Video>,
     onVideoItemClicked: (Video) -> Unit = {}) {
+
+    item {
+        Text(
+            text = "Videos",
+            style = MaterialTheme.typography.headlineMedium
+        )
+        YSpacer(gap = 12.dp)
+    }
 
     items(count = videoList.size) {
         VideoUiV(videoItem = videoList[it], onVideoItemClicked = onVideoItemClicked )
