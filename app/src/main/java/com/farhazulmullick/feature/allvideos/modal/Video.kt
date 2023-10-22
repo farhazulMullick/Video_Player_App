@@ -1,8 +1,12 @@
 package com.farhazulmullick.feature.allvideos.modal
 
 import android.net.Uri
+import android.os.Parcelable
 import com.farhazulmullick.utils.EMPTY
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class Video(
     val videoId: String = String.EMPTY,
     val videoUri: Uri? = null,
@@ -15,4 +19,4 @@ data class Video(
 
     // Last watch time in seconds.
     val lastWatchTime: Long = 0L
-)
+): Parcelable

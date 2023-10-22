@@ -28,17 +28,19 @@ class RecentWatchDataSourceImpl @Inject constructor(
     }
 
 
-    override suspend fun getVideoById(id: String): Flow<Video> {
+    override suspend fun getVideoById(id: String): Flow<Video?> {
         return videosDao.getVideoById(id).map {
-            Video(
-                videoId = it.videoId.value,
-                videoTitle = it.videoTitle.value,
-                videoDuration = it.duration ?: 0L,
-                videoPath = it.videoPath.value,
-                lastWatchTime = it.lastWatchTime ?: 0L,
-                videoUri = Uri.parse(it.thumbnail),
-                videoSize = it.videoSize ?: 0
-            )
+            it?.let {
+                Video(
+                    videoId = it.videoId.value,
+                    videoTitle = it.videoTitle.value,
+                    videoDuration = it.duration ?: 0L,
+                    videoPath = it.videoPath.value,
+                    lastWatchTime = it.lastWatchTime ?: 0L,
+                    videoUri = Uri.parse(it.thumbnail),
+                    videoSize = it.videoSize ?: 0
+                )
+            }
         }
     }
 

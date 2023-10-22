@@ -26,6 +26,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
+        android:name="com.farhazulmullick.application.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

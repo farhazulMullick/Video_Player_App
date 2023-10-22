@@ -41,7 +41,7 @@ class FolderDetailsActivity : AppCompatActivity() {
         super.onStart()
         val folderId = intent.getStringExtra("folderId")
         folderId?.let {
-            viewModel.fetchVideosOfFolder(it)
+            viewModel.fetchVideosOfFolder(it, applicationContext)
         }
     }
 

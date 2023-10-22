@@ -14,7 +14,7 @@ interface VideosDao {
     fun getVideos(limit: Int): Flow<List<VideoDetails>>
 
     @Query("SELECT * FROM video_details WHERE video_id = :id")
-    fun getVideoById(id: String): Flow<VideoDetails>
+    fun getVideoById(id: String): Flow<VideoDetails?>
 
     @Insert
     suspend fun saveVideoStats(videoDetails: VideoDetails)

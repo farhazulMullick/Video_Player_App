@@ -13,6 +13,7 @@ import com.farhazulmullick.videoplayer.ExoplayerActivity
 import com.farhazulmullick.videoplayer.R
 import com.farhazulmullick.videoplayer.databinding.LayoutRowVideoPlayerBinding
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
+import com.farhazulmullick.utils.VIDEO_MODEL
 
 class VideoFragmentAdapter(val context: Context, val viewModel: VideoViewModel) : RecyclerView.Adapter<VideoFragmentAdapter.VideoViewHolder>() {
     inner class VideoViewHolder(val binding: LayoutRowVideoPlayerBinding) :
@@ -48,8 +49,7 @@ class VideoFragmentAdapter(val context: Context, val viewModel: VideoViewModel) 
 
             container.setOnClickListener {
                 Intent(context, ExoplayerActivity::class.java).apply {
-                    this.putExtra("videoUri", currentVideo.videoPath)
-                    this.putExtra("videoTitle", currentVideo.videoTitle)
+                    putExtra(VIDEO_MODEL, currentVideo)
                     startActivity(context, this, null)
                 }
             }

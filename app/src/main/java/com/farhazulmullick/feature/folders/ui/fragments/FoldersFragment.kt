@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.farhazulmullick.feature.folders.adapters.FoldersAdapter
 import com.farhazulmullick.videoplayer.databinding.FragmentFoldersBinding
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FoldersFragment : Fragment() {
     private var _binding : FragmentFoldersBinding? = null
     private val binding get() = _binding!!
@@ -19,7 +22,7 @@ class FoldersFragment : Fragment() {
     private lateinit var folderAdapter: FoldersAdapter
 
     // viewModel
-    private val viewModel: VideoViewModel by activityViewModels()
+    private val viewModel: VideoViewModel by viewModels()
     override fun onAttach(context: Context) {
         super.onAttach(context)
     }
@@ -51,7 +54,7 @@ class FoldersFragment : Fragment() {
 //            }
 //        )
 
-        viewModel.fetchAllfolders()
+        context?.run { viewModel.fetchAllfolders(this) }
     }
 
 

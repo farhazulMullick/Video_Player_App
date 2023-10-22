@@ -12,6 +12,7 @@ buildscript {
         viewModel_compose = "2.6.2"
         compiler_extension = "1.5.0"
         composeCoil = "2.4.0"
+        fragment_ktx = "1.6.1"
     }
     repositories {
         google()

@@ -10,27 +10,29 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.platform.ComposeView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farhazulmullick.core_ui.utils.PermissionType
 import com.farhazulmullick.core_ui.utils.checkForRequiredPermissions
 import com.farhazulmullick.feature.allvideos.adapter.VideoFragmentAdapter
+import com.farhazulmullick.feature.allvideos.modal.Video
 import com.farhazulmullick.feature.allvideos.ui.composable.VideosScreen
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
+import com.farhazulmullick.utils.VIDEO_MODEL
 import com.farhazulmullick.utils.toastS
 import com.farhazulmullick.videoplayer.ExoplayerActivity
 import com.farhazulmullick.videoplayer.databinding.FragmentAllVideosBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VideosFragment : Fragment() {
     private var _binding: FragmentAllVideosBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: VideoViewModel
-    private lateinit var videoAdapter: VideoFragmentAdapter
+    private val viewModel by viewModels<VideoViewModel>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
-        viewModel = ViewModelProvider(requireActivity()).get(VideoViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -41,7 +43,7 @@ class VideosFragment : Fragment() {
         return if (context!=null) {
             activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
                 onGranted = {
-                    viewModel.fetchAllVideos()
+                    viewModel.fetchAllVideos(context = context!!)
                 },
                 onDenied = {
                     toastS("Please Grant media permissions to access files")
@@ -52,10 +54,9 @@ class VideosFragment : Fragment() {
                     MaterialTheme {
                         VideosScreen(
                             viewModel = viewModel,
-                            onVideoItemClicked = {
+                            onVideoItemClicked = {videoItem: Video->
                                 Intent(context, ExoplayerActivity::class.java).apply {
-                                    this.putExtra("videoUri", it.videoPath)
-                                    this.putExtra("videoTitle", it.videoTitle)
+                                    putExtra(VIDEO_MODEL, videoItem)
                                     ContextCompat.startActivity(context, this, null)
                                 }
                             }

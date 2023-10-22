@@ -1,7 +1,7 @@
 package com.farhazulmullick.feature.allvideos.viewmodel
 
-import android.app.Application
 import android.content.ContentUris
+import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
@@ -15,20 +15,21 @@ import android.provider.MediaStore.MediaColumns.DURATION
 import android.provider.MediaStore.MediaColumns.SIZE
 import android.provider.MediaStore.MediaColumns._ID
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farhazulmullick.data.local.recentwatch.datasource.RecentWatchDataSource
-import com.farhazulmullick.data.local.recentwatch.entity.VideoDetails
-import com.farhazulmullick.feature.folders.modals.Folder
 import com.farhazulmullick.feature.allvideos.modal.Video
+import com.farhazulmullick.feature.folders.modals.Folder
+import com.farhazulmullick.utils.VIDEO_MODEL
 import com.farhazulmullick.utils.getLongValue
 import com.farhazulmullick.utils.getStringValue
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
@@ -37,12 +38,18 @@ import java.io.File
 import java.io.FileNotFoundException
 import javax.inject.Inject
 
+
+@HiltViewModel
 class VideoViewModel @Inject constructor(
-    application: Application,
-    val recentWatchDataSource: RecentWatchDataSource
-) : AndroidViewModel(application) {
+    val recentWatchDataSource: RecentWatchDataSource,
+    val savedStateHandle: SavedStateHandle
+) : ViewModel() {
     companion object {
         const val TAG = "VideoViewModel"
+    }
+
+    val currentVideo by lazy {
+        savedStateHandle.get<Video>(VIDEO_MODEL) ?: throw NullPointerException("video model can't be null")
     }
 
     private val contentUri: Uri? get() {
@@ -73,13 +80,14 @@ class VideoViewModel @Inject constructor(
     }
 
     private fun getCursor(
+        context: Context,
         uri: Uri,
         projections: Array<String>?,
         selections: String?,
         selectionArgs: Array<String>?,
         sortOrder: String?
     ): Cursor? =
-        this.getApplication<Application>().applicationContext.contentResolver.query(
+        context.contentResolver.query(
             uri,
             projections,
             selections,
@@ -89,18 +97,19 @@ class VideoViewModel @Inject constructor(
 
 
     private suspend fun queryForVideosData(
+        context: Context,
         contentUri: Uri,
         projections: Array<String>?,
         selections: String?,
         selectionArgs: Array<String>?,
-        sortOrder: String?
+        sortOrder: String?,
     ): List<Video> {
         val dataList = ArrayList<Video>()
 
         return withContext(Dispatchers.IO) {
             supervisorScope {
                 try {
-                    getCursor(contentUri, projections, selections, selectionArgs, sortOrder)?.apply {
+                    getCursor(context, contentUri, projections, selections, selectionArgs, sortOrder)?.apply {
 
                         val idColumn = getColumnIndex(_ID)
                         val displayColumn = getColumnIndex(DISPLAY_NAME)
@@ -151,12 +160,13 @@ class VideoViewModel @Inject constructor(
     }
 
 
-    fun fetchAllVideos() {
+    fun fetchAllVideos(context: Context) {
         if (contentUri==null) return
         val sortOrder = MediaStore.Video.Media.DATE_ADDED + " DESC"
 
         viewModelScope.launch {
             val videos: List<Video> = queryForVideosData(
+                context = context,
                 contentUri = contentUri!!,
                 projections = projections,
                 selections = null,
@@ -168,11 +178,11 @@ class VideoViewModel @Inject constructor(
         }
     }
 
-    fun fetchAllfolders() {
+    fun fetchAllfolders(context: Context) {
         if (contentUri==null) return
         val sortOrder = "$BUCKET_DISPLAY_NAME ASC"
 
-        getCursor(contentUri!!, projections, null, null, sortOrder)?.apply {
+        getCursor(context, contentUri!!, projections, null, null, sortOrder)?.apply {
 
             val bktIdColumn = getColumnIndex(BUCKET_ID)
             val bktDisplayColumn = getColumnIndex(BUCKET_DISPLAY_NAME)
@@ -206,7 +216,7 @@ class VideoViewModel @Inject constructor(
 
     }
 
-    fun fetchVideosOfFolder(folderId: String) {
+    fun fetchVideosOfFolder(folderId: String, context: Context) {
         if (contentUri==null) return
         val selection = "${MediaStore.Video.Media.BUCKET_ID} = ?"
         val selectionArgs = arrayOf(folderId)
@@ -214,6 +224,7 @@ class VideoViewModel @Inject constructor(
 
         viewModelScope.launch {
             val videos: List<Video> = queryForVideosData(
+                context = context,
                 contentUri = contentUri!!,
                 projections = projections,
                 selections = selection,
@@ -250,6 +261,23 @@ class VideoViewModel @Inject constructor(
             }
         }
         return recentWatchList
+    }
+
+    fun updateRecentVideoItemInDb(lastWatchTime: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            recentWatchDataSource.getVideoById(currentVideo.videoId).collect() {video ->
+                if (video != null) {
+                    recentWatchDataSource.updateVideoItem(
+                        id = video.videoId,
+                        lastWatchTime = lastWatchTime
+                    )
+                }else {
+                    recentWatchDataSource.saveVideo(currentVideo.copy(
+                        lastWatchTime = lastWatchTime
+                    ))
+                }
+            }
+        }
     }
 
 

@@ -121,6 +121,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$viewModel_compose"
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$viewModel_compose"
+    implementation "androidx.fragment:fragment-ktx:$fragment_ktx"
 
     // coil
     implementation("io.coil-kt:coil-compose:$composeCoil")

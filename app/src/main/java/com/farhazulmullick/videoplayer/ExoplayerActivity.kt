@@ -20,6 +20,7 @@ import com.farhazulmullick.utils.toast
 import com.farhazulmullick.videoplayer.databinding.ActivityExoplayerBinding
 import com.farhazulmullick.videoplayer.databinding.LayoutMoreFeaturesMenuBinding
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
+import com.farhazulmullick.utils.value
 import com.google.android.exoplayer2.C
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
@@ -28,12 +29,14 @@ import com.google.android.exoplayer2.SimpleExoPlayer
 import com.google.android.exoplayer2.audio.AudioAttributes
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+@AndroidEntryPoint
 class ExoplayerActivity : AppCompatActivity() {
     companion object {
         const val TAG = "ExoplayerActivity"
@@ -324,17 +327,18 @@ class ExoplayerActivity : AppCompatActivity() {
         ).build()
         player?.addListener(PlaybackStates())
         binding.exoPlayerView.player = player
-        val videoUri = intent?.getStringExtra("videoUri") ?: run {
+        val videoUri = viewModel.currentVideo.videoUri ?: run {
             finish()
             return
         }
-        val videoTitle = intent.getStringExtra("videoTitle")
+        val videoTitle = viewModel.currentVideo.videoTitle
         try {
             val mediaItem = MediaItem.fromUri(videoUri)
             binding.tvVideoTitle.text = videoTitle.toString()
             binding.tvVideoTitle.isSelected = true
             player?.setMediaItem(mediaItem)
             player?.prepare()
+            player?.seekTo(viewModel.currentVideo.lastWatchTime)
             playMedia()
             seekForward()
             seekBackWord()
@@ -372,8 +376,13 @@ class ExoplayerActivity : AppCompatActivity() {
 
     private fun onUpBackbuttonClicked() {
         binding.btnVideoBack.setOnClickListener {
-            finish()
+            onBackPressed()
         }
+    }
+
+    override fun onBackPressed() {
+        viewModel.updateRecentVideoItemInDb(player?.duration ?: 0)
+        super.onBackPressed()
     }
 
     inner class PlaybackStates: Player.Listener {
