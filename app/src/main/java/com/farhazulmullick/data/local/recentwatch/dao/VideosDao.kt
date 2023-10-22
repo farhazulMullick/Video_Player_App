@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface VideosDao {
-    @Query("SELECT * FROM video_details LIMIT :limit")
+    @Query("SELECT * FROM video_details ORDER BY created_at DESC LIMIT :limit")
     fun getVideos(limit: Int): Flow<List<VideoDetails>>
 
     @Query("SELECT * FROM video_details WHERE video_id = :id")
@@ -19,6 +19,9 @@ interface VideosDao {
     @Insert
     suspend fun saveVideoStats(videoDetails: VideoDetails)
 
-    @Query("UPDATE video_details SET last_watch_time = :lastWatchTime WHERE video_id = :id")
-    suspend fun updateLastWatchPoint(id: String, lastWatchTime: Long): Int
+    @Query("UPDATE video_details SET last_watch_time = :lastWatchTime, created_at = :createdAt WHERE video_id = :id")
+    suspend fun updateLastWatchPoint(id: String, lastWatchTime: Long, createdAt: Long): Int
+
+    @Query("DELETE FROM video_details WHERE video_id = :id")
+    suspend fun deleteVideoStatsById(id: String)
 }

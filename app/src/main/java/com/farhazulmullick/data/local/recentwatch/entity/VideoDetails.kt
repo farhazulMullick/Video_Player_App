@@ -35,4 +35,7 @@ data class VideoDetails(
     @ColumnInfo("video_size")
     var videoSize: Long? = 0L,
 
+    @ColumnInfo("created_at")
+    var createdAt: Long? = 0L
+
 )

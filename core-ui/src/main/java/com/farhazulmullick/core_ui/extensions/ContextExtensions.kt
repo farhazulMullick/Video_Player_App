@@ -34,14 +34,15 @@ class ImageCache(capacity: Int) : LruCache<Uri, Bitmap>(capacity) {
     }
 }
 
-suspend fun Context.getBitmap(uri: Uri) = withContext(Dispatchers.IO) {
+suspend fun Context.getBitmap(uri: Uri, width : Int = 512, height: Int = 512)
+= withContext(Dispatchers.IO) {
     try {
         val cache = ImageCache.getInstance(context = this@getBitmap)
         cache.get(uri) ?: run {
             val bitmap = Glide.with(this@getBitmap)
                 .asBitmap()
                 .load(uri)
-                .submit(512, 512)
+                .submit(width, height)
                 .get()
             cache.put(uri, bitmap)
             bitmap

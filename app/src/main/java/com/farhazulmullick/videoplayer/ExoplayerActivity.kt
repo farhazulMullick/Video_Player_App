@@ -381,7 +381,7 @@ class ExoplayerActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        viewModel.updateRecentVideoItemInDb(player?.duration ?: 0)
+        viewModel.updateRecentVideoItemInDb(player?.currentPosition ?: 0)
         super.onBackPressed()
     }
 

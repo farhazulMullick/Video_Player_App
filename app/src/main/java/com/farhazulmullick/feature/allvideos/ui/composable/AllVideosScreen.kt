@@ -60,7 +60,7 @@ fun VideosScreen(
 
     LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
 
-        item {
+        item(key = recentVideos) {
             AnimatedVisibility(visible = recentVideos.isNotEmpty()) {
                 ContinueWatch(
                     videoList = recentVideos,

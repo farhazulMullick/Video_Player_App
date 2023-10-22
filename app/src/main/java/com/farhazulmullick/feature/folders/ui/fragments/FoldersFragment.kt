@@ -9,9 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.farhazulmullick.core_ui.utils.PermissionType
+import com.farhazulmullick.core_ui.utils.checkForRequiredPermissions
 import com.farhazulmullick.feature.folders.adapters.FoldersAdapter
 import com.farhazulmullick.videoplayer.databinding.FragmentFoldersBinding
 import com.farhazulmullick.feature.allvideos.viewmodel.VideoViewModel
+import com.farhazulmullick.utils.toastS
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -45,16 +48,14 @@ class FoldersFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-//        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
-//            onGranted = {
-//
-//            },
-//            onDenied = {
-//                toastS("Please Grant media permissions to access files")
-//            }
-//        )
-
-        context?.run { viewModel.fetchAllfolders(this) }
+        activity?.checkForRequiredPermissions(listOf(PermissionType.STORAGE),
+            onGranted = {
+                context?.run { viewModel.fetchAllfolders(this) }
+            },
+            onDenied = {
+                toastS("Please Grant media permissions to access files")
+            }
+        )
     }
 
 
